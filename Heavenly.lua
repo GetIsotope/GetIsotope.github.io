@@ -1762,8 +1762,10 @@ function Heavenly:Window(config)
 	screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	secGui(screenGui)
 
-	for _, child in pairs(screenGui.Parent:GetChildren()) do
-		if child.Name == "HeavenlyUI" and child ~= screenGui then child:Destroy() end
+	if screenGui.Parent then
+		for _, child in pairs(screenGui.Parent:GetChildren()) do
+			if child.Name == "HeavenlyUI" and child ~= screenGui then child:Destroy() end
+		end
 	end
 
 	local mainWindow = Instance.new("Frame")
