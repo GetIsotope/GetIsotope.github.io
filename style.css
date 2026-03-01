@@ -49,7 +49,6 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   transition: background var(--transition), color var(--transition);
-  /* Allow text selection by default */
   user-select: text;
   -webkit-user-select: text;
 }
@@ -64,7 +63,6 @@ button {
   border: none;
   background: none;
   font-family: inherit;
-  /* Buttons themselves should not be selectable */
   user-select: none;
   -webkit-user-select: none;
 }
@@ -106,7 +104,6 @@ nav {
   background: rgba(10, 10, 10, 0.88);
   border-bottom: 1px solid var(--border);
   transition: background var(--transition), border-color var(--transition);
-  /* Nav UI elements: no selection */
   user-select: none;
   -webkit-user-select: none;
 }
@@ -182,7 +179,6 @@ nav {
   color: var(--text-primary);
   font-size: 0.83rem;
   width: 160px;
-  /* Input should allow typing/selection */
   user-select: text;
   -webkit-user-select: text;
 }
@@ -252,7 +248,6 @@ nav {
   padding: 2rem;
   position: relative;
   overflow: hidden;
-  /* Hero text should be selectable */
   user-select: text;
   -webkit-user-select: text;
 }
@@ -267,7 +262,6 @@ nav {
   opacity: 0.4;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
-  /* Decorative, no selection */
   user-select: none;
   -webkit-user-select: none;
   pointer-events: none;
@@ -281,7 +275,6 @@ nav {
   text-transform: uppercase;
   margin-bottom: 1.5rem;
   animation: slideUp 0.6s ease 0.1s both;
-  /* Decorative label — no selection */
   user-select: none;
   -webkit-user-select: none;
 }
@@ -315,7 +308,6 @@ nav {
   flex-wrap: wrap;
   justify-content: center;
   animation: slideUp 0.6s ease 0.4s both;
-  /* Buttons: no selection */
   user-select: none;
   -webkit-user-select: none;
 }
@@ -372,7 +364,6 @@ nav {
   background: var(--bg);
   padding: 2.5rem 2rem;
   transition: background var(--transition);
-  /* Card chrome not selectable, but text inside is */
 }
 
 .feature-card:hover {
@@ -383,9 +374,14 @@ nav {
   font-size: 1.4rem;
   margin-bottom: 1rem;
   display: block;
-  /* Decorative icon */
   user-select: none;
   -webkit-user-select: none;
+}
+
+.feature-icon img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
 }
 
 .feature-title {
@@ -411,7 +407,6 @@ nav {
 
 .docs-layout {
   display: flex;
-  /* NO padding-top here — .content-wrapper already adds 60px */
   min-height: 100vh;
   position: relative;
 }
@@ -420,19 +415,17 @@ nav {
 
 .sidebar {
   width: var(--sidebar-width);
-  /* Sticky instead of fixed so it scrolls within the docs page */
   position: sticky;
-  top: 60px;                    /* stick just below the nav */
-  height: calc(100vh - 60px);   /* never taller than the viewport */
+  top: 60px;
+  height: calc(100vh - 60px);
   overflow-y: auto;
   border-right: 1px solid var(--border);
   background: var(--bg);
   padding: 1.5rem 0;
   flex-shrink: 0;
-  align-self: flex-start;       /* required for sticky inside flex */
+  align-self: flex-start;
   transition: transform var(--transition);
   z-index: 50;
-  /* Sidebar nav items: no selection */
   user-select: none;
   -webkit-user-select: none;
 }
@@ -519,6 +512,7 @@ nav {
   background: var(--bg-secondary);
 }
 
+/* ─── DOCS CONTENT ────────────────────────────────────────────── */
 
 .docs-content {
   flex: 1;
@@ -550,7 +544,6 @@ nav {
   color: var(--text-muted);
   margin-bottom: 0.75rem;
   display: block;
-  /* Badge label: no selection */
   user-select: none;
   -webkit-user-select: none;
 }
@@ -588,6 +581,24 @@ nav {
   pointer-events: none;
 }
 
+/* ─── INLINE LINK ─────────────────────────────────────────────── */
+
+.inline-link {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 1px;
+  transition: color var(--transition), border-color var(--transition);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.inline-link:hover {
+  color: var(--text-primary);
+  border-bottom-color: var(--text-primary);
+}
+
 /* ─── CODE BLOCKS ─────────────────────────────────────────────── */
 
 .code-block {
@@ -604,7 +615,6 @@ nav {
   justify-content: space-between;
   padding: 0.6rem 1rem;
   border-bottom: 1px solid var(--border);
-  /* Header chrome: no selection */
   user-select: none;
   -webkit-user-select: none;
 }
@@ -635,7 +645,6 @@ nav {
   font-size: 0.875rem;
   line-height: 1.7;
   color: var(--text-secondary);
-  /* Code should be selectable/copyable */
   user-select: text;
   -webkit-user-select: text;
 }
@@ -669,7 +678,6 @@ nav {
   text-transform: uppercase;
   color: var(--text-muted);
   border-bottom: 1px solid var(--border);
-  /* Table headers: no selection */
   user-select: none;
   -webkit-user-select: none;
 }
@@ -679,7 +687,6 @@ nav {
   border-bottom: 1px solid var(--border);
   color: var(--text-secondary);
   vertical-align: top;
-  /* Table cells: selectable */
   user-select: text;
   -webkit-user-select: text;
 }
@@ -1253,7 +1260,6 @@ nav {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  /* Terminal body: allow selection so people can copy the links */
   user-select: text;
   -webkit-user-select: text;
 }
@@ -1316,7 +1322,6 @@ code {
     padding: 2rem 1.5rem 4rem;
   }
 
-  /* On mobile the sidebar goes back to fixed/off-canvas */
   .sidebar {
     position: fixed;
     top: 60px;
@@ -1388,10 +1393,10 @@ code {
 }
 
 html {
-  scrollbar-width: none;       
-  -ms-overflow-style: none;     
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 html::-webkit-scrollbar {
-  display: none;                
+  display: none;
 }
