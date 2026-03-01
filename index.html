@@ -1,11 +1,1126 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>&#8203;</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="icon" type="image/x-icon" href="Icons/icon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Syne:wght@300;400;600&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HeavenlyScripts</title>
+  <meta name="description" content="HeavenlyScripts - Roblox Lua UI Library, Toolkit, and Scripts" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>" />
+</head>
+<body>
 
+  <nav>
+    <div class="nav-logo" data-goto="home">Heavenly<span>Scripts</span></div>
+    <div class="nav-links">
+      <span class="nav-link" data-page="home">Home</span>
+      <span class="nav-link" data-page="docs">Docs</span>
+      <span class="nav-link" data-page="portfolio">Projects</span>
+      <span class="nav-link" data-page="about">About</span>
+      <span class="nav-link" data-page="contact">Contact</span>
+    </div>
+    <div class="nav-right">
+      <div class="search-wrapper">
+        <div class="search-bar">
+          <span class="search-icon">⌕</span>
+          <input type="text" placeholder="Search..." aria-label="Search docs and projects" />
+        </div>
+        <div class="search-results"></div>
+      </div>
+      <button class="theme-toggle" aria-label="Toggle theme">☀</button>
+      <button class="hamburger" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <div class="mobile-sidebar-overlay"></div>
+
+  <div class="content-wrapper">
+
+    <main id="page-home" class="page">
+      <section class="home-hero">
+        <div class="hero-grid-bg" aria-hidden="true"></div>
+        <span class="hero-eyebrow">Scripts Made Simple</span>
+        <h1 class="hero-title">Heavenly<br /><span class="dim">Scripts</span></h1>
+        <p class="hero-subtitle">A Roblox Lua UI library and collection of scripts designed to make your coding or exploiting experience smoother.</p>
+        <div class="hero-buttons">
+          <button class="btn-primary" data-goto="docs">Read the Docs</button>
+          <button class="btn-secondary" data-goto="portfolio">View Projects</button>
+        </div>
+      </section>
+
+      <div class="home-features">
+        <div class="feature-card">
+          <span class="feature-icon">
+  <img src="icon.ico" alt="Feature Icon">
+</span>
+          <div class="feature-title">Heavenly Library</div>
+          <p class="feature-desc">A lightweight, composable, Orion-based Roblox Lua UI library with zero dependencies. Drop it in and build fast.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">
+  <img src="book.png" alt="Feature Icon">
+</span>
+          <div class="feature-title">Clean Docs</div>
+          <p class="feature-desc">Every component documented with clear examples, detailed explanations, and copy-ready code snippets.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">
+  <img src="quality.png" alt="Feature Icon">
+</span>
+          <div class="feature-title">Scripts with Quality</div>
+          <p class="feature-desc">A growing collection of high-quality scripts, utilities, and tools. Available via GitHub and Discord.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">◐</span>
+          <div class="feature-title">Privacy Matters</div>
+          <p class="feature-desc">No hidden code. No tricks. Only quality.</p>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <span class="footer-brand">HeavenlyScripts</span>
+        <div class="footer-links">
+          <span class="footer-link" data-goto="docs">Docs</span>
+          <span class="footer-link" data-goto="portfolio">Projects</span>
+          <a class="footer-link" href="https://github.com/heavenlyscripts" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </footer>
+    </main>
+
+    <main id="page-docs" class="page">
+      <div class="docs-layout">
+
+        <aside class="sidebar" role="navigation" aria-label="Documentation navigation">
+          <div class="sidebar-section-label">Introduction</div>
+          <button class="sidebar-link active" data-section="getting-started">Getting Started</button>
+          <button class="sidebar-link" data-section="installation">Installation</button>
+          <button class="sidebar-link" data-section="theming">Theming</button>
+          <button class="sidebar-link" data-section="window">Window</button>
+
+          <div class="sidebar-section-label">Elements</div>
+          <button class="sidebar-link" data-section="button">Button</button>
+          <button class="sidebar-link" data-section="toggle">Toggle</button>
+          <button class="sidebar-link" data-section="slider">Slider</button>
+          <button class="sidebar-link" data-section="dropdown">Dropdown</button>
+          <button class="sidebar-link" data-section="textbox">TextBox</button>
+          <button class="sidebar-link" data-section="bind">Bind</button>
+          <button class="sidebar-link" data-section="colorpicker">Colorpicker</button>
+          <button class="sidebar-link" data-section="label">Label</button>
+          <button class="sidebar-link" data-section="paragraph">Paragraph</button>
+          <button class="sidebar-link" data-section="section">Section</button>
+
+          <div class="sidebar-section-label">Features</div>
+          <button class="sidebar-link" data-section="notify">Notify</button>
+          <button class="sidebar-link" data-section="topbar">Topbar</button>
+          <button class="sidebar-link" data-section="radial">Radial Menu</button>
+          <button class="sidebar-link" data-section="keybindlist">Keybind List</button>
+          <button class="sidebar-link" data-section="flags">Flags & Config</button>
+          <button class="sidebar-link" data-section="startup">Startup Anims</button>
+          <button class="sidebar-link" data-section="destroy">Destroy</button>
+        </aside>
+
+        <article class="docs-content">
+
+          <div class="doc-section" id="getting-started">
+            <span class="doc-section-badge">Introduction</span>
+            <h2>Welcome to the Heavenly Docs.</h2>
+            <p>This is the official documentation for the Heavenly UI Library, a Roblox Lua UI framework based off of Orion, with Orion compatibility. It gives you a full set of UI elements for building script interfaces fast, without boilerplate.</p>
+            <p>The library handles everything: window creation, tabs, elements, notifications, keybind tracking, a radial menu, a topbar, config saving, and startup animations. Every element returns an object you can call <code>:Set()</code> on to update it at runtime.</p>
+            <div class="callout">
+              <p><strong>Note:</strong> Make sure your executor supports needed Functions. The library also uses <code>writefile</code>, <code>readfile</code>, <code>isfile</code>, and <code>makefolder</code> for config saving. These are optional but required for that feature.</p>
+            </div>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="installation">
+            <span class="doc-section-badge">Introduction</span>
+            <h2>Installation</h2>
+            <p>Load the library with <code>loadstring</code> and <code>game:HttpGet</code> in your executor. Call it once at the top of your script and store the result.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>local Heavenly = loadstring(game:HttpGet("https://raw.githubusercontent.com/HeavenlyScripts/HeavenlyScripts.github.io/refs/heads/main/Heavenly.lua"))()</pre>
+            </div>
+            <p>Script order matters. Always follow this structure; getting it wrong will cause features like the topbar and radial menu to silently not appear.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>local Heavenly = loadstring(game:HttpGet("https://raw.githubusercontent.com/HeavenlyScripts/HeavenlyScripts.github.io/refs/heads/main/Heavenly.lua"))()
+
+-- 1. Set feature flags FIRST, before Window
+Heavenly.ShowTopbar = true
+Heavenly.ShowRadial = true
+Heavenly.RadialHotkey = Enum.KeyCode.Z
+Heavenly.RadialMode = "hold" 
+Heavenly.ShowKeybindList = true
+
+-- 2. Create the window
+local Window = Heavenly:Window({ Name = "My Script" })
+
+-- 4. Create tabs and add elements
+local Tab = Window:Tab({
+    Name = "LocalPlayer",
+    Icon = "rbxassetid://110213647176253"
+ })
+
+Tab:Toggle({
+    Name = "Im a Toggle",
+    Default = false,
+    Color = Color3.fromRGB(255, 255, 255) -- Optional
+    Callback = function(state)
+        print("Toggle is :", state)
+    end
+})
+
+-- 5. Call Init
+Heavenly:Init()</pre>
+            </div>
+            <div class="callout">
+              <p><strong>Important:</strong> <code>Heavenly.ShowTopbar</code>, <code>Heavenly.ShowRadial</code>, and related flags must be set <em>before</em> <code>Heavenly:Window()</code>, not after. Setting them after the window won't work because <code>Heavenly:Init()</code> reads them only once.</p>
+            </div>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="theming">
+            <span class="doc-section-badge">Introduction</span>
+            <h2>Theming</h2>
+            <p>The library ships with two built-in themes: <code>Dark</code> and <code>Light</code>. Pass the theme name when creating the window. Custom themes must be registered with <code>Heavenly.Themes:Add()</code> <em>before</em> calling <code>Heavenly:Window()</code>.</p>
+            <div class="callout">
+              <p><strong>Common mistake:</strong> There is no <code>Heavenly:SetTheme()</code> method. Theme switching lives on the <strong>window object</strong> as <code>Window:SetTheme(name)</code> and takes a theme name string, not a table.</p>
+            </div>
+            <h3>Built-in Themes</h3>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>local Window = Heavenly:Window({
+    Name = "My Script",
+    Theme = "Dark",   -- "Dark" or "Light"
+})</pre>
+            </div>
+            <h3>Custom Themes</h3>
+            <p>Register your theme before the window, then pass the name to <code>Theme</code>. Any keys you omit fall back to Dark theme defaults.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>-- Must be called BEFORE Heavenly:Window()
+Heavenly.Themes:Add("MyTheme", {
+    Main = Color3.fromRGB(15, 15, 20),
+    Second = Color3.fromRGB(22, 22, 30),
+    Stroke = Color3.fromRGB(50, 50, 65),
+    Divider = Color3.fromRGB(50, 50, 65),
+    Text = Color3.fromRGB(240, 240, 240),
+    TextDark = Color3.fromRGB(130, 130, 150),
+})
+
+local Window = Heavenly:Window({
+    Name = "My Script",
+    Theme = "MyTheme",
+})</pre>
+            </div>
+            <h3>Switch Theme at Runtime</h3>
+            <p>Call <code>:SetTheme()</code> on the <strong>window object</strong>, not on <code>Heavenly</code> itself.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>-- correct
+Window:SetTheme("Light")
+</pre>
+            </div>
+            <div class="callout">
+              <p><strong>Note:</strong> Heavenly has no SetTheme method. <code>Heavenly:SetTheme({ ... })</code> will error.</p>
+            </div>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="window">
+            <span class="doc-section-badge">Introduction</span>
+            <h2>Window</h2>
+            <p>The window is the root container for your entire UI. Create it with <code>Heavenly:Window()</code> after setting any feature flags. It returns a window object used to create tabs and call runtime methods.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>local Window = Heavenly:Window({
+    Name = "My Script",
+    Theme = "Dark",
+    Startup = true,
+    StartupAnim = "Blob",
+    StartupText = "Loading...",
+    StartupIcon = "rbxassetid://...",
+    CloseCallback = function()
+        print("UI closed")
+    end,
+    SaveConfig = true,
+    ConfigFolder = "MyScript",
+    Config = tostring(game.GameId),
+    ShowDisplayName = true, 
+    ShowUsername = true, 
+})</pre>
+            </div>
+            <div class="callout">
+              <p><strong>Note:</strong><code>StartupText</code>&<code>StartupIcon</code> will <strong>only</strong> work on <strong> Typewriter</strong>Animation.</p>
+            </div>
+            <h3>Window Options</h3>
+            <table class="prop-table">
+              <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>Name</td><td>string</td><td>"HeavenlyUI"</td><td>Title shown in the top bar</td></tr>
+                <tr><td>Theme</td><td>string</td><td>"Dark"</td><td>Theme name. Built-in: "Dark", "Light"</td></tr>
+                <tr><td>SaveConfig</td><td>boolean</td><td>false</td><td>Enable auto-save and load of flagged element values</td></tr>
+                <tr><td>ConfigFolder</td><td>string</td><td>Window Name</td><td>Folder name used when writing config files</td></tr>
+                <tr><td>Config</td><td>string</td><td>game.GameId</td><td>Config filename (without .json). Must be a string; do not pass <code>true</code></td></tr>
+                <tr><td>Startup</td><td>boolean</td><td>false</td><td>Play a startup animation on open</td></tr>
+                <tr><td>StartupAnim</td><td>string</td><td>"Blob"</td><td>Animation name: Blob, Fade, Typewriter, Bounce, Unfold</td></tr>
+                <tr><td>StartupText</td><td>string</td><td>""</td><td>Text shown during startup animation</td></tr>
+                <tr><td>StartupIcon</td><td>string</td><td>""</td><td>Asset ID shown during startup animation</td></tr>
+                <tr><td>CloseCallback</td><td>function</td><td>nil</td><td>Called when the X button is pressed</td></tr>
+                <tr><td>ShowDisplayName</td><td>boolean</td><td>false</td><td>Show player display name in the sidebar footer</td></tr>
+                <tr><td>ShowUsername</td><td>boolean</td><td>false</td><td>Show @username in the sidebar footer</td></tr>
+              </tbody>
+            </table>
+            <div class="callout">
+              <p><strong>Config gotcha:</strong> <code>Config</code> must be a <strong>string</strong>, not a boolean. Passing <code>Config = true</code> will break config saving. Use <code>Config = tostring(game.GameId)</code> to save per-game, or any string name you choose.</p>
+            </div>
+            <h3>Window Methods</h3>
+            <table class="prop-table">
+              <thead><tr><th>Method</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>Window:Tab(config)</td><td>Create a new tab. Returns a tab object.</td></tr>
+                <tr><td>Window:SetTheme(name)</td><td>Switch theme by name at runtime. Takes a string, not a table.</td></tr>
+                <tr><td>Window:SetAccentColor(color)</td><td>Change the accent Color3 across all accent elements.</td></tr>
+                <tr><td>Window:SetAvatarText(text)</td><td>Set a small label below the avatar in the sidebar footer.</td></tr>
+              </tbody>
+            </table>
+
+            <div class="callout">
+              <p><strong>Note:</strong>Heavenly also Supports the style of OrionLib. You will be able to easily use your old Script with our UI since <code>:MakeWindow</code> & <code>:MakeNotification</code> etc. Are Supported, though, not Recommeneded to use.</p>
+            </div>
+
+            <h3>Tabs</h3>
+            <p>Tabs are created from the window object. Each tab gets a sidebar button and its own scrollable content page. If you enable the topbar or radial menu, tabs also appear there automatically.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>local Tab = Window:Tab({
+    Name = "Main",
+    Icon = "rbxassetid://...",
+})</pre>
+            </div>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="button">
+            <span class="doc-section-badge">Elements</span>
+            <h2>Button</h2>
+            <p>A clickable row that fires a callback. The returned object has a <code>:Set()</code> method to change the label text at runtime.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>local Button = Tab:Button({
+    Name = "Teleport to Spawn",
+    Callback = function()
+        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(0, 5, 0))
+    end
+})
+
+Button:Set("New Label")</pre>
+            </div>
+            <table class="prop-table">
+              <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>Name</td><td>string</td><td>"Button"</td><td>Label shown on the row</td></tr>
+                <tr><td>Callback</td><td>function</td><td>nil</td><td>Called when clicked. Runs in a task.spawn.</td></tr>
+              </tbody>
+            </table>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="toggle">
+            <span class="doc-section-badge">Elements</span>
+            <h2>Toggle</h2>
+            <p>A checkbox element with a boolean value. Fires a callback with the new value on change. Supports flags for config saving.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>local toggle = Tab:Toggle({
+    Name = "Infinite Jump",
+    Default = false,
+    Flag = "InfiniteJump",
+    Save = true,
+    Color = Color3.fromRGB(0, 170, 255),
+    Callback = function(value)
+        print("Infinite Jump:", value)
+    end
+})
+
+toggle:Set(true)
+print(toggle.Value)</pre>
+            </div>
+            <table class="prop-table">
+              <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>Name</td><td>string</td><td>"Toggle"</td><td>Label shown on the row</td></tr>
+                <tr><td>Default</td><td>boolean</td><td>false</td><td>Initial state</td></tr>
+                <tr><td>Flag</td><td>string</td><td>nil</td><td>Key in Heavenly.Flags for config saving</td></tr>
+                <tr><td>Save</td><td>boolean</td><td>false</td><td>Include this value when saving config</td></tr>
+                <tr><td>Color</td><td>Color3</td><td>RGB(9,99,195)</td><td>Checkbox accent color when enabled (Optional)</td></tr>
+                <tr><td>Callback</td><td>function</td><td>nil</td><td>Called with new boolean value on change</td></tr>
+              </tbody>
+            </table>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="slider">
+            <span class="doc-section-badge">Elements</span>
+            <h2>Slider</h2>
+            <p>A draggable range input. Supports min, max, default, increment, and an optional value label suffix. The fill color is customizable.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>local slider = Tab:Slider({
+    Name = "Walk Speed",
+    Min = 16,
+    Max = 250,
+    Default = 16,
+    Increment = 1,
+    ValueName = "studs/s",
+    Flag = "WalkSpeed",
+    Save = true,
+    Color = Color3.fromRGB(9, 149, 98),
+    Callback = function(value)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
+    end
+})
+
+slider:Set(50)
+print(slider.Value)</pre>
+            </div>
+            <table class="prop-table">
+              <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>Name</td><td>string</td><td>"Slider"</td><td>Label shown above the track</td></tr>
+                <tr><td>Min</td><td>number</td><td>0</td><td>Minimum value</td></tr>
+                <tr><td>Max</td><td>number</td><td>100</td><td>Maximum value</td></tr>
+                <tr><td>Default</td><td>number</td><td>50</td><td>Starting value</td></tr>
+                <tr><td>Increment</td><td>number</td><td>1</td><td>Snapping increment</td></tr>
+                <tr><td>ValueName</td><td>string</td><td>""</td><td>Suffix appended to the displayed number</td></tr>
+                <tr><td>Flag</td><td>string</td><td>nil</td><td>Key in Heavenly.Flags</td></tr>
+                <tr><td>Save</td><td>boolean</td><td>false</td><td>Include in config save</td></tr>
+                <tr><td>Color</td><td>Color3</td><td>RGB(9,149,98)</td><td>Fill and border color of the track</td></tr>
+                <tr><td>Callback</td><td>function</td><td>nil</td><td>Called with the new number on drag</td></tr>
+              </tbody>
+            </table>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="dropdown">
+            <span class="doc-section-badge">Elements</span>
+            <h2>Dropdown</h2>
+            <p>A collapsible list of options. Click to expand, click an option to select. Supports refreshing the option list and setting values at runtime.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>local dropdown = Tab:Dropdown({
+    Name = "Select Game Mode",
+    Options = { "Normal", "Hard", "Insane" },
+    Default = "Normal",
+    Flag = "GameMode",
+    Save = true,
+    Callback = function(value)
+        print("Selected:", value)
+    end
+})
+
+dropdown:Set("Hard")
+dropdown:Refresh({ "Easy", "Normal", "Hard" }, true)
+print(dropdown.Value)</pre>
+            </div>
+            <table class="prop-table">
+              <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>Name</td><td>string</td><td>"Dropdown"</td><td>Label shown in the header</td></tr>
+                <tr><td>Options</td><td>table</td><td>{}</td><td>Array of string options</td></tr>
+                <tr><td>Default</td><td>string</td><td>""</td><td>Initially selected option</td></tr>
+                <tr><td>Flag</td><td>string</td><td>nil</td><td>Key in Heavenly.Flags</td></tr>
+                <tr><td>Save</td><td>boolean</td><td>false</td><td>Include in config save</td></tr>
+                <tr><td>Callback</td><td>function</td><td>nil</td><td>Called with selected string on change</td></tr>
+              </tbody>
+            </table>
+            <h3>Methods</h3>
+            <table class="prop-table">
+              <thead><tr><th>Method</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>:Set(value)</td><td>Select an option by value string.</td></tr>
+                <tr><td>:Refresh(options, deleteExisting)</td><td>Replace or append options. Pass true to wipe old ones first.</td></tr>
+              </tbody>
+            </table>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="textbox">
+            <span class="doc-section-badge">Elements</span>
+            <h2>TextBox</h2>
+            <p>A text input field. Clicking the row opens it for typing. The callback fires when focus is lost. Optionally clears the text after submit.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>Tab:TextBox({
+    Name = "Set Player Name",
+    Default = "",
+    TextDisappear = true,
+    Callback = function(text)
+        print("Submitted:", text)
+    end
+})</pre>
+            </div>
+            <table class="prop-table">
+              <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>Name</td><td>string</td><td>"Input"</td><td>Label on the left side of the row</td></tr>
+                <tr><td>Default</td><td>string</td><td>""</td><td>Pre-filled text value</td></tr>
+                <tr><td>TextDisappear</td><td>boolean</td><td>false</td><td>Clears the box after focus is lost</td></tr>
+                <tr><td>Callback</td><td>function</td><td>nil</td><td>Called with the text string on focus lost</td></tr>
+              </tbody>
+            </table>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="bind">
+            <span class="doc-section-badge">Elements</span>
+            <h2>Bind</h2>
+            <p>A keybind element. Click the row to enter binding mode, then press any key or mouse button. Supports modifier keys (Shift, Ctrl, Alt) and hold mode. Blacklisted keys like WASD and Escape cannot be bound.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>local bind = Tab:Bind({
+    Name = "Toggle Test",
+    Default = Enum.KeyCode.E,
+    Hold = false,
+    Flag = "ToggleUIBind",
+    Save = true,
+    Callback = function()
+        print("Bind fired!")
+    end
+})
+
+bind:Set(Enum.KeyCode.F)
+print(bind.Value)</pre>
+            </div>
+            <div class="callout">
+              <p><strong>Hold Mode:</strong> When <code>Hold = true</code>, the callback fires with <code>true</code> when the key is pressed down and <code>false</code> when released.</p>
+            </div>
+            <table class="prop-table">
+              <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>Name</td><td>string</td><td>"Bind"</td><td>Label shown on the row</td></tr>
+                <tr><td>Default</td><td>KeyCode</td><td>KeyCode.Unknown</td><td>Default key to bind</td></tr>
+                <tr><td>Hold</td><td>boolean</td><td>false</td><td>Fire on hold and release instead of single press</td></tr>
+                <tr><td>Modifier</td><td>KeyCode / table</td><td>nil</td><td>Required modifier key(s) to be held alongside the bind</td></tr>
+                <tr><td>Flag</td><td>string</td><td>nil</td><td>Key in Heavenly.Flags</td></tr>
+                <tr><td>Save</td><td>boolean</td><td>false</td><td>Include in config save</td></tr>
+                <tr><td>Callback</td><td>function</td><td>nil</td><td>Fires when the bind is triggered</td></tr>
+              </tbody>
+            </table>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="colorpicker">
+            <span class="doc-section-badge">Elements</span>
+            <h2>Colorpicker</h2>
+            <p>A collapsible HSV color picker with a saturation/value field and a hue strip. Clicking the row expands it. The preview box updates in real time as you drag.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>local ColorPicker = Tab:Colorpicker({
+    Name = "Trail Color",
+    Default = Color3.fromRGB(0, 170, 255),
+    Flag = "TrailColor",
+    Save = true,
+    Callback = function(color)
+        print("Color:", color)
+    end
+})
+
+cp:Set(Color3.fromRGB(255, 0, 100))
+print(cp.Value)</pre>
+            </div>
+            <table class="prop-table">
+              <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>Name</td><td>string</td><td>"Colorpicker"</td><td>Label shown in the header</td></tr>
+                <tr><td>Default</td><td>Color3</td><td>RGB(255,255,255)</td><td>Initial color</td></tr>
+                <tr><td>Flag</td><td>string</td><td>nil</td><td>Key in Heavenly.Flags</td></tr>
+                <tr><td>Save</td><td>boolean</td><td>false</td><td>Include in config save</td></tr>
+                <tr><td>Callback</td><td>function</td><td>nil</td><td>Called with Color3 on change</td></tr>
+              </tbody>
+            </table>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="label">
+            <span class="doc-section-badge">Elements</span>
+            <h2>Label</h2>
+            <p>A static text row. Useful for headings or dynamic status displays. Update the text at runtime with <code>:Set()</code>.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>local lbl = Tab:Label("Status: Idle")
+
+lbl:Set("Status: Running")</pre>
+            </div>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="paragraph">
+            <span class="doc-section-badge">Elements</span>
+            <h2>Paragraph</h2>
+            <p>A two-line block with a bold title and a wrapped body. Good for descriptions, changelogs, or info blocks. Automatically resizes to fit the content.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>local para = Tab:Paragraph({
+    Name = "Changelog v1.2",
+    Content = "Fixed infinite jump not working after respawn.\nAdded speed slider to the Movement tab.",
+})
+
+para:Set("Updated Title", "Updated body text here.")</pre>
+            </div>
+            <table class="prop-table">
+              <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>Name</td><td>string</td><td>"Paragraph"</td><td>Bold title at the top</td></tr>
+                <tr><td>Content</td><td>string</td><td>""</td><td>Wrapped body text below the divider</td></tr>
+              </tbody>
+            </table>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="section">
+            <span class="doc-section-badge">Elements</span>
+            <h2>Section</h2>
+            <p>A labeled group that contains other elements. Sections automatically resize to fit their children. All standard tab elements are available inside a section.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>local section = Tab:Section("Movement")
+
+section:Toggle({
+    Name = "Infinite Jump",
+    Default = false,
+    Callback = function(v) print(v) end,
+})
+
+section:Slider({
+    Name = "Walk Speed",
+    Min = 16,
+    Max = 250,
+    Default = 16,
+    Callback = function(v)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
+    end
+})</pre>
+            </div>
+            <p>Sections support all the same elements as a tab directly: <code>:Button()</code>, <code>:Toggle()</code>, <code>:Slider()</code>, <code>:Dropdown()</code>, <code>:TextBox()</code>, <code>:Bind()</code>, <code>:Colorpicker()</code>, <code>:Label()</code>, <code>:Paragraph()</code>.</p>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="notify">
+            <span class="doc-section-badge">Features</span>
+            <h2>Notify</h2>
+            <p>Sends a stacked notification from the bottom-right of the screen. Notifications slide in, drain a timer bar, then slide out. Multiple notifications stack automatically.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>Heavenly:Notify({
+    Name          = "Config Loaded",
+    Content       = "Your saved config has been applied.",
+    Time          = 5,
+    Image         = "rbxassetid://4384403532",
+    DurationColor = Color3.fromRGB(0, 200, 120),
+})</pre>
+            </div>
+            <div class="code-block">
+                <div class = "code-block-header">
+                    <span class = "code-block-lang">lua</span>
+                    <button class = "copy-btn" onclick="copyCode(this)">Copy</button>
+                </div>
+                <pre>
+-- shorthand: text and duration as positional args
+Heavenly:Notify("Simple message", 3)
+                </pre>
+            </div>
+            <div class="callout">
+              <p><strong>Common mistake:</strong> The duration key is <code>Time</code>, not <code>Duration</code>. Passing <code>Duration</code> will be silently ignored and the notification will use the 5 second default.</p>
+            </div>
+            <table class="prop-table">
+              <thead><tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>Name</td><td>string</td><td>"Notification"</td><td>Bold title line</td></tr>
+                <tr><td>Content</td><td>string</td><td>""</td><td>Secondary body text below the title</td></tr>
+                <tr><td>Time</td><td>number</td><td>5</td><td>Duration in seconds before auto-dismiss</td></tr>
+                <tr><td>Image</td><td>string</td><td>rbxassetid://4384403532</td><td>Icon asset ID shown left of the title</td></tr>
+                <tr><td>DurationColor</td><td>Color3</td><td>RGB(0,170,255)</td><td>Color of the side timer drain bar</td></tr>
+              </tbody>
+            </table>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="topbar">
+            <span class="doc-section-badge">Features</span>
+            <h2>Topbar</h2>
+            <p>An optional floating panel at the top-center of the screen showing icon buttons for every tab, plus a search bar that finds any element or flag by name. The topbar is draggable and supports tab rows that expand past 6 icons.</p>
+            <div class="callout">
+              <p><strong>Must be set before <code>Heavenly:Window()</code>:</strong> Setting <code>ShowTopbar</code> after the window is created will cause it to not appear. Feature flags are read once when <code>Heavenly:Init()</code> runs, but tabs are registered during <code>Heavenly:Window()</code>, so the flag must be set first.</p>
+            </div>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>-- Set BEFORE Heavenly:Window()
+Heavenly.ShowTopbar = true
+
+local Window = Heavenly:Window({ ... })
+-- tabs and elements...
+Heavenly:Init()</pre>
+            </div>
+            <p>The search panel opens on click of the magnifying glass icon. It searches all flags and element names and navigates directly to the containing tab on selection.</p>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="radial">
+            <span class="doc-section-badge">Features</span>
+            <h2>Radial Menu</h2>
+            <p>A circular menu that maps each tab to a card arranged around a center point. Supports hold and toggle modes. Shows tab icons on the cards if the tab has an icon set.</p>
+            <div class="callout">
+              <p><strong>Must be set before <code>Heavenly:Window()</code>:</strong> Same rule as the topbar; <code>ShowRadial</code> and <code>RadialHotkey</code> must be assigned before the window is created, not after.</p>
+            </div>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>-- Set BEFORE Heavenly:Window()
+Heavenly.ShowRadial   = true
+Heavenly.RadialHotkey = Enum.KeyCode.Z
+Heavenly.RadialMode   = "hold"   -- "hold" or "toggle"
+
+local Window = Heavenly:Window({ ... })
+-- tabs and elements...
+Heavenly:Init()</pre>
+            </div>
+            <table class="prop-table">
+              <thead><tr><th>Property</th><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>ShowRadial</td><td>boolean</td><td>Enable the radial menu</td></tr>
+                <tr><td>RadialHotkey</td><td>KeyCode</td><td>Key that opens/closes the wheel. Required if ShowRadial is true.</td></tr>
+                <tr><td>RadialMode</td><td>string</td><td>"hold" — wheel opens while key held, selects on release. "toggle" — key toggles open/close, click a card to select.</td></tr>
+              </tbody>
+            </table>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="keybindlist">
+            <span class="doc-section-badge">Features</span>
+            <h2>Keybind List</h2>
+            <p>A persistent overlay panel in the bottom-left corner showing all active binds and their current keys. Updates automatically when a bind is changed. Only visible when at least one bind exists.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>-- Set BEFORE Heavenly:Window()
+Heavenly.ShowKeybindList = true
+
+local Window = Heavenly:Window({ ... })
+-- tabs and elements...
+Heavenly:Init()</pre>
+            </div>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="flags">
+            <span class="doc-section-badge">Features</span>
+            <h2>Flags &amp; Config</h2>
+            <p>Flags let you reference any element's value globally via <code>Heavenly.Flags["FlagName"]</code>. When <code>SaveConfig = true</code> on the window and <code>Save = true</code> on an element, its value is written to a JSON file and auto-loaded on the next run via <code>Heavenly:Init()</code>.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>local Window = Heavenly:Window({
+    Name = "My Script",
+    SaveConfig = true,        -- boolean: enable saving
+    ConfigFolder = "MyScript",  -- folder name
+    Config = tostring(game.GameId),  -- string filename, NOT true
+})
+
+Tab:Toggle({
+    Name = "Speed Hack",
+    Flag = "SpeedHack",    -- registers to Heavenly.Flags
+    Save = true,            -- included in save file
+    Default = false,
+    Callback = function(v) end,
+})
+
+-- read any flag value anywhere in your script
+print(Heavenly.Flags["SpeedHack"].Value)
+
+Heavenly:Init()  -- loads saved config if file exists</pre>
+            </div>
+            <div class="callout">
+              <p><strong>Common mistake:</strong> Do not pass <code>Config = true</code>. The <code>Config</code> option is the filename string, while <code>SaveConfig</code> is the boolean that enables the feature. Mixing these up will silently break config saving.</p>
+            </div>
+            <p>On load, if the config file exists, values are applied to all matching flags and a notification fires confirming the load. Config files are stored as JSON at <code>ConfigFolder/Config.json</code> using executor file functions (<code>writefile</code>, <code>readfile</code>, <code>isfile</code>, <code>makefolder</code>).</p>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="startup">
+            <span class="doc-section-badge">Features</span>
+            <h2>Startup Animations</h2>
+            <p>Enable a startup animation by setting <code>Startup = true</code> on the window and picking one of the built-in animation names.</p>
+            <table class="prop-table">
+              <thead><tr><th>Name</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td>Blob</td><td>A circle expands from center, then morphs into the window shape.</td></tr>
+                <tr><td>Fade</td><td>The window fades in from transparent.</td></tr>
+                <tr><td>Typewriter</td><td>Shows an overlay with a typing animation and progress bar, then fades out.</td></tr>
+                <tr><td>Bounce</td><td>The window drops in from the top and bounces into position.</td></tr>
+                <tr><td>Unfold</td><td>The window expands horizontally then vertically.</td></tr>
+              </tbody>
+            </table>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>local Window = Heavenly:Window({
+    Name = "My Script",
+    Startup = true,
+    StartupAnim = "Typewriter",
+    StartupText = "Loading My Script...",
+    StartupIcon = "rbxassetid://...",
+})</pre>
+            </div>
+            <div class="doc-divider"></div>
+          </div>
+
+          <div class="doc-section" id="destroy">
+            <span class="doc-section-badge">Features</span>
+            <h2>Destroy</h2>
+            <p>Completely removes all Heavenly GUIs from the game and clears all internal state. Use this for clean reloads or to wipe the UI on demand.</p>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-block-lang">lua</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <pre>Heavenly:Destroy()</pre>
+            </div>
+            <p>This removes the following GUIs: <code>HeavenlyUI</code>, <code>HeavenlyNotifications</code>, <code>HeavenlyKeybindList</code>, <code>HeavenlyTopbar</code>, <code>HeavenlyRadial</code>. It also clears <code>Heavenly.Binds</code>, <code>Heavenly._Tabs</code>, <code>Heavenly._ElementRegistry</code>, and all internal references.</p>
+          </div>
+
+        </article>
+      </div>
+    </main>
+
+    <main id="page-portfolio" class="page">
+      <div class="portfolio-page">
+        <header class="page-header">
+          <span class="page-eyebrow">What we Ship</span>
+          <h1 class="page-title">Projects</h1>
+          <p class="page-desc">A collection of Roblox Lua scripts, libraries, and tools. Each project is built with care and shipped when it's ready.</p>
+        </header>
+
+        <div class="filter-bar">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="open-source">Open Source</button>
+          <button class="filter-btn" data-filter="toolkit">Toolkit</button>
+          <button class="filter-btn" data-filter="scripts">Scripts</button>
+        </div>
+
+        <div class="projects-grid">
+
+          <div class="project-card" data-tags="open-source">
+            <div class="project-card-top">
+              <span class="project-name">Heavenly UI Library</span>
+              <a class="project-github-link" href="https://github.com/HeavenlyScripts/HeavenlyScripts.github.io/" target="_blank" rel="noopener" aria-label="GitHub">↗</a>
+            </div>
+            <p class="project-desc">The core Roblox Lua UI component library built on Orion. Lightweight, composable, and fully themed. The only open-source project from HeavenlyScripts.</p>
+            <div class="project-tags">
+              <span class="tag">open-source</span>
+              <span class="tag">roblox lua</span>
+              <span class="tag">ui</span>
+            </div>
+            <div class="project-footer">
+              <span>★★★★★</span>
+              <span class="project-license-badge">MIT License + Restrictions</span>
+            </div>
+          </div>
+
+          <div class="project-card" data-tags="toolkit">
+            <div class="project-card-top">
+              <span class="project-name">Heavenly Toolkit</span>
+              <span class="project-status-badge coming-soon">Coming Soon</span>
+            </div>
+            <p class="project-desc">Our Toolkit. An easy way to Spoof, Uninstall Roblox, Find Directories, Multi-Instance. Will get updated and set Open-Source on Release.</p>
+            <div class="project-tags">
+              <span class="tag">toolkit</span>
+              <span class="tag">roblox</span>
+              <span class="tag">utilities</span>
+            </div>
+            <div class="project-footer">
+              <span>★★★★★</span>
+              <span>Open Source Soon</span>
+            </div>
+          </div>
+
+          <div class="project-card" data-tags="scripts">
+            <div class="project-card-top">
+              <span class="project-name">Emergency Hamburg</span>
+              <span class="project-status-badge closed">Closed Source</span>
+            </div>
+            <p class="project-desc">Feature-rich script for Emergency Hamburg with auto-drive, Car Dupe, and more. Available via the Discord server.</p>
+            <div class="project-tags">
+              <span class="tag">scripts</span>
+              <span class="tag">exploit</span>
+            </div>
+            <div class="project-footer">
+              <span>★★★★★</span>
+              <span>Via Discord</span>
+            </div>
+          </div>
+
+          <div class="project-card" data-tags="scripts">
+            <div class="project-card-top">
+              <span class="project-name">Arsenal</span>
+              <span class="project-status-badge closed">Closed Source</span>
+            </div>
+            <p class="project-desc">Fully undetected Arsenal Script, made for precision. Silent Aim, Legit, Ragebot, Kill-All. Anything you would need, here at Heavenly.</p>
+            <div class="project-tags">
+              <span class="tag">scripts</span>
+              <span class="tag">exploit</span>
+            </div>
+            <div class="project-footer">
+              <span>★★★★★</span>
+              <span>Via Discord</span>
+            </div>
+          </div>
+
+          <div class="project-card" data-tags="scripts">
+            <div class="project-card-top">
+              <span class="project-name">Flick</span>
+              <span class="project-status-badge closed">Closed Source</span>
+            </div>
+            <p class="project-desc">Lightweight Script for the Game Flick, Basic Aimbot and ESP etc.</p>
+            <div class="project-tags">
+              <span class="tag">scripts</span>
+              <span class="tag">exploits</span>
+            </div>
+            <div class="project-footer">
+              <span>★★★★★</span>
+              <span>Via Discord</span>
+            </div>
+          </div>
+
+          <div class="project-card" data-tags="scripts">
+            <div class="project-card-top">
+              <span class="project-name">Frontlines</span>
+              <span class="project-status-badge closed">Closed Source - Bugged</span>
+            </div>
+            <p class="project-desc">Aimbot, NoClip, HBE. Everything Undetected, only here, clean and easy Use.</p>
+            <div class="project-tags">
+              <span class="tag">scripts</span>
+              <span class="tag">exploit</span>
+            </div>
+            <div class="project-footer">
+              <span>★★★★★</span>
+              <span>Via Discord</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="footer">
+        <span class="footer-brand">HeavenlyScripts</span>
+        <div class="footer-links">
+          <a class="footer-link" href="https://discord.gg/MERzRQ2UHn" target="_blank" rel="noopener">Discord</a>
+          <a class="footer-link" href="https://github.com/heavenlyscripts" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </footer>
+    </main>
+
+    <main id="page-about" class="page">
+      <div class="about-page">
+        <header class="page-header">
+          <span class="page-eyebrow">Developers</span>
+          <h1 class="page-title">About</h1>
+          <p class="page-desc">Who's behind HeavenlyScripts and what drives the work.</p>
+        </header>
+
+        <div class="about-grid">
+          <div class="about-block full">
+            <span class="about-block-label">Bio</span>
+            <p>We lead HeavenlyScripts, Roblox Scripting focused on building UI tooling and scripts that just work. Our projects are built with care, built to last, and made for developers and exploiters who care about quality.</p>
+            <p style="margin-top:0.75rem">We spend most of my time writing Lua, UI structure, and refining the gap between a functional script and a great one.</p>
+          </div>
+
+          <div class="about-block">
+            <span class="about-block-label">What we Offer</span>
+            <div class="offering-list">
+              <div class="offering-item">
+                <span class="offering-dot open"></span>
+                <div>
+                  <span class="offering-name">UI Library</span>
+                  <span class="offering-status">Open Source</span>
+                </div>
+              </div>
+              <div class="offering-item">
+                <span class="offering-dot soon"></span>
+                <div>
+                  <span class="offering-name">Toolkit</span>
+                  <span class="offering-status">Open Source Soon</span>
+                </div>
+              </div>
+              <div class="offering-item">
+                <span class="offering-dot closed"></span>
+                <div>
+                  <span class="offering-name">Scripts</span>
+                  <span class="offering-status">Closed Source</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-block">
+            <span class="about-block-label">Stack</span>
+            <div class="skills-list">
+              <span class="skill-item">Lua</span>
+              <span class="skill-item">Luau</span>
+              <span class="skill-item">Python</span>
+              <span class="skill-item">User-Friendly</span>
+            </div>
+          </div>
+
+          <div class="about-block full">
+            <span class="about-block-label">Philosophy</span>
+            <p>Quality over quantity. Scripts that run clean, UIs that feel right, and tools that actually get used. Everything built with intention, nothing shipped half-finished.</p>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <span class="footer-brand">HeavenlyScripts</span>
+        <div class="footer-links">
+          <a class="footer-link" href="https://discord.gg/MERzRQ2UHn" target="_blank" rel="noopener">Discord</a>
+          <a class="footer-link" href="https://github.com/heavenlyscripts" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </footer>
+    </main>
+
+    <main id="page-contact" class="page">
+      <div class="contact-page">
+        <header class="page-header">
+          <span class="page-eyebrow">Get In Touch</span>
+          <h1 class="page-title">Contact</h1>
+          <p class="page-desc">Questions about the library, scripts, or just want to say hi. The Discord is the best place to reach us.</p>
+        </header>
+
+        <div class="contact-grid">
+          <a class="contact-card" href="https://discord.gg/MERzRQ2UHn" target="_blank" rel="noopener">
+            <span class="contact-icon">◈</span>
+            <span class="contact-card-title">Discord</span>
+            <span class="contact-card-sub">discord.gg/MERzRQ2UHn</span>
+          </a>
+          <a class="contact-card" href="https://github.com/heavenlyscripts" target="_blank" rel="noopener">
+            <span class="contact-icon">◇</span>
+            <span class="contact-card-title">GitHub</span>
+            <span class="contact-card-sub">github.com/heavenlyscripts</span>
+          </a>
+        </div>
+
+        <div class="contact-terminal">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+            </div>
+            <span class="terminal-title">heavenly.lua</span>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-line">
+              <span class="t-dim">-- </span><span class="t-comment">// reach out</span>
+            </div>
+            <div class="terminal-line">
+              <span class="t-keyword">local </span><span class="t-var">contact</span><span class="t-dim"> = {</span>
+            </div>
+            <div class="terminal-line t-indent">
+              <span class="t-key">Discord</span><span class="t-dim"> = </span><a href="https://discord.gg/MERzRQ2UHn" target="_blank" rel="noopener" class="t-string">"discord.gg/MERzRQ2UHn"</a><span class="t-dim">,</span>
+            </div>
+            <div class="terminal-line t-indent">
+              <span class="t-key">GitHub</span><span class="t-dim"> = </span><a href="https://github.com/heavenlyscripts" target="_blank" rel="noopener" class="t-string">"github.com/heavenlyscripts"</a><span class="t-dim">,</span>
+            </div>
+            <div class="terminal-line t-indent">
+              <span class="t-key">Response</span><span class="t-dim"> = </span><span class="t-string">"Usually within 24h"</span><span class="t-dim">,</span>
+            </div>
+            <div class="terminal-line">
+              <span class="t-dim">}</span>
+            </div>
+            <div class="terminal-line" style="margin-top:1rem">
+              <span class="t-keyword">return </span><span class="t-var">contact</span><span class="t-cursor"></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <footer class="footer">
+        <span class="footer-brand">HeavenlyScripts</span>
+        <div class="footer-links">
+          <a class="footer-link" href="https://discord.gg/MERzRQ2UHn" target="_blank" rel="noopener">Discord</a>
+          <a class="footer-link" href="https://github.com/heavenlyscripts" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </footer>
+    </main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
 </html>
