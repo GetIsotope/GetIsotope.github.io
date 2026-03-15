@@ -6,21 +6,15 @@ const router = {
     document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
 
     const targetPage = document.getElementById('page-' + pageId);
-    if (targetPage) {
-      targetPage.classList.add('active');
-    }
+    if (targetPage) targetPage.classList.add('active');
 
     const targetLink = document.querySelector('[data-page="' + pageId + '"]');
-    if (targetLink) {
-      targetLink.classList.add('active');
-    }
+    if (targetLink) targetLink.classList.add('active');
 
     this.currentPage = pageId;
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    if (pageId === 'docs') {
-      setTimeout(() => docObserver.observe(), 100);
-    }
+    if (pageId === 'docs') setTimeout(() => docObserver.observe(), 100);
 
     closeMobileNav();
     closeSearch();
@@ -52,9 +46,7 @@ const docObserver = {
           const id = entry.target.getAttribute('id');
           document.querySelectorAll('.sidebar-link').forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('data-section') === id) {
-              link.classList.add('active');
-            }
+            if (link.getAttribute('data-section') === id) link.classList.add('active');
           });
         }
       });
@@ -65,34 +57,131 @@ const docObserver = {
 };
 
 const searchData = [
-  { title: 'Getting Started', type: 'Docs', page: 'docs', section: 'getting-started' },
-  { title: 'Installation', type: 'Docs', page: 'docs', section: 'installation' },
-  { title: 'Theming', type: 'Docs', page: 'docs', section: 'theming' },
-  { title: 'Window', type: 'Docs', page: 'docs', section: 'window' },
-  { title: 'Button', type: 'Docs', page: 'docs', section: 'button' },
-  { title: 'Toggle', type: 'Docs', page: 'docs', section: 'toggle' },
-  { title: 'Slider', type: 'Docs', page: 'docs', section: 'slider' },
-  { title: 'Dropdown', type: 'Docs', page: 'docs', section: 'dropdown' },
-  { title: 'TextBox', type: 'Docs', page: 'docs', section: 'textbox' },
-  { title: 'Bind', type: 'Docs', page: 'docs', section: 'bind' },
-  { title: 'Colorpicker', type: 'Docs', page: 'docs', section: 'colorpicker' },
-  { title: 'Label', type: 'Docs', page: 'docs', section: 'label' },
-  { title: 'Paragraph', type: 'Docs', page: 'docs', section: 'paragraph' },
-  { title: 'Section', type: 'Docs', page: 'docs', section: 'section' },
-  { title: 'Notify', type: 'Docs', page: 'docs', section: 'notify' },
-  { title: 'Topbar', type: 'Docs', page: 'docs', section: 'topbar' },
-  { title: 'Radial Menu', type: 'Docs', page: 'docs', section: 'radial' },
-  { title: 'Keybind List', type: 'Docs', page: 'docs', section: 'keybindlist' },
-  { title: 'Flags & Config', type: 'Docs', page: 'docs', section: 'flags' },
-  { title: 'Startup Animations', type: 'Docs', page: 'docs', section: 'startup' },
-  { title: 'Destroy', type: 'Docs', page: 'docs', section: 'destroy' },
-  { title: 'Heavenly UI Library', type: 'Project', page: 'portfolio' },
-  { title: 'Heavenly Toolkit', type: 'Project', page: 'portfolio' },
-  { title: 'Blox Fruits Script', type: 'Project', page: 'portfolio' },
-  { title: 'Arsenal Script', type: 'Project', page: 'portfolio' },
-  { title: 'Universal Script Hub', type: 'Project', page: 'portfolio' },
-  { title: 'Pet Simulator 99', type: 'Project', page: 'portfolio' },
+  { title: 'Getting Started',        type: 'Docs', page: 'docs', section: 'getting-started' },
+  { title: 'Installation',           type: 'Docs', page: 'docs', section: 'installation' },
+  { title: 'Theming',                type: 'Docs', page: 'docs', section: 'theming' },
+  { title: 'Window',                 type: 'Docs', page: 'docs', section: 'window' },
+  { title: 'Button',                 type: 'Docs', page: 'docs', section: 'button' },
+  { title: 'Toggle',                 type: 'Docs', page: 'docs', section: 'toggle' },
+  { title: 'Slider',                 type: 'Docs', page: 'docs', section: 'slider' },
+  { title: 'Dropdown',               type: 'Docs', page: 'docs', section: 'dropdown' },
+  { title: 'MultiDropdown',          type: 'Docs', page: 'docs', section: 'multi-dropdown' },
+  { title: 'TextBox',                type: 'Docs', page: 'docs', section: 'textbox' },
+  { title: 'Bind',                   type: 'Docs', page: 'docs', section: 'bind' },
+  { title: 'Colorpicker',            type: 'Docs', page: 'docs', section: 'colorpicker' },
+  { title: 'Stepper',                type: 'Docs', page: 'docs', section: 'stepper' },
+  { title: 'Label',                  type: 'Docs', page: 'docs', section: 'label' },
+  { title: 'Paragraph',              type: 'Docs', page: 'docs', section: 'paragraph' },
+  { title: 'ProgressBar',            type: 'Docs', page: 'docs', section: 'progressbar' },
+  { title: 'KeyValue',               type: 'Docs', page: 'docs', section: 'keyvalue' },
+  { title: 'Section',                type: 'Docs', page: 'docs', section: 'section' },
+  { title: 'Separator',              type: 'Docs', page: 'docs', section: 'separator' },
+  { title: 'Grid',                   type: 'Docs', page: 'docs', section: 'grid' },
+  { title: 'Notify',                 type: 'Docs', page: 'docs', section: 'notify' },
+  { title: 'CNotify',                type: 'Docs', page: 'docs', section: 'cnotify' },
+  { title: 'Modal',                  type: 'Docs', page: 'docs', section: 'modal' },
+  { title: 'Toast',                  type: 'Docs', page: 'docs', section: 'toast' },
+  { title: 'Topbar',                 type: 'Docs', page: 'docs', section: 'topbar' },
+  { title: 'Radial Menu',            type: 'Docs', page: 'docs', section: 'radial' },
+  { title: 'Keybind List',           type: 'Docs', page: 'docs', section: 'keybindlist' },
+  { title: 'Flags & Config',         type: 'Docs', page: 'docs', section: 'flags' },
+  { title: 'Startup Animations',     type: 'Docs', page: 'docs', section: 'startup' },
+  { title: 'Tab Sections',           type: 'Docs', page: 'docs', section: 'tabsection' },
+  { title: 'Collapsible Tab Sections', type: 'Docs', page: 'docs', section: 'tabsection' },
+  { title: 'User Section',           type: 'Docs', page: 'docs', section: 'usersection' },
+  { title: 'Owner Buttons',          type: 'Docs', page: 'docs', section: 'owner-buttons' },
+  { title: 'Owner Button Dropdown',  type: 'Docs', page: 'docs', section: 'owner-buttons' },
+  { title: 'Key System',             type: 'Docs', page: 'docs', section: 'keysystem' },
+  { title: 'SetTitle',               type: 'Docs', page: 'docs', section: 'settitle' },
+  { title: 'Lock / Unlock',          type: 'Docs', page: 'docs', section: 'lock' },
+  { title: 'Flash',                  type: 'Docs', page: 'docs', section: 'flash' },
+  { title: 'Toggle Confirm',         type: 'Docs', page: 'docs', section: 'confirm-toggle' },
+  { title: 'Locked Toggle',          type: 'Docs', page: 'docs', section: 'locked-toggle' },
+  { title: 'Window Controls',        type: 'Docs', page: 'docs', section: 'window-controls' },
+  { title: 'Hover Maximize',         type: 'Docs', page: 'docs', section: 'hover-maximize' },
+  { title: 'Watermark',              type: 'Docs', page: 'docs', section: 'watermark' },
+  { title: 'Destroy',                type: 'Docs', page: 'docs', section: 'destroy' },
+  { title: 'Heavenly UI Library',    type: 'Project', page: 'portfolio' },
+  { title: 'Heavenly Toolkit',       type: 'Project', page: 'portfolio' },
+  { title: 'Emergency Hamburg',      type: 'Project', page: 'portfolio' },
+  { title: 'Arsenal Script',         type: 'Project', page: 'portfolio' },
+  { title: 'Flick Script',           type: 'Project', page: 'portfolio' },
+  { title: 'Frontlines Script',      type: 'Project', page: 'portfolio' },
 ];
+
+function showDocsModal() {
+  const overlay = document.createElement('div');
+  overlay.className = 'lib-modal-overlay';
+  overlay.innerHTML = `
+    <div class="lib-modal">
+      <div class="lib-modal-header">
+        <span class="lib-modal-eyebrow">Documentation</span>
+        <h2 class="lib-modal-title">Choose a Library</h2>
+        <p class="lib-modal-sub">Select which Heavenly product you want to read docs for.</p>
+      </div>
+      <div class="lib-modal-options">
+        <button class="lib-option active-option" data-lib="lib" onclick="selectLib('lib')">
+          <span class="lib-option-name">Heavenly Lib</span>
+          <span class="lib-option-sub">An Heavenily Modified fork of the UI-Library "Orion", adapted for Performace, User Friendliness. </span>
+          <span class="lib-option-badge">Available</span>
+        </button>
+        <button class="lib-option" data-lib="interface" onclick="selectLib('interface')">
+          <span class="lib-option-name">Heavenly Interface</span>
+          <span class="lib-option-sub">Custom UI</span>
+          <span class="lib-option-badge coming">Coming Soon</span>
+        </button>
+        <button class="lib-option" data-lib="framework" onclick="selectLib('framework')">
+          <span class="lib-option-name">Heavenly Framework</span>
+          <span class="lib-option-sub">Custom UI</span>
+          <span class="lib-option-badge coming">Coming Soon</span>
+        </button>
+      </div>
+      <div class="lib-modal-footer">
+        <button class="lib-modal-close" onclick="closeLibModal()">Cancel</button>
+        <button class="lib-modal-confirm" onclick="confirmLib()">Open Docs →</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  requestAnimationFrame(() => overlay.classList.add('visible'));
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeLibModal();
+  });
+}
+
+let selectedLib = 'lib';
+
+function selectLib(lib) {
+  selectedLib = lib;
+  document.querySelectorAll('.lib-option').forEach(btn => {
+    btn.classList.toggle('active-option', btn.getAttribute('data-lib') === lib);
+  });
+}
+
+function confirmLib() {
+  if (selectedLib === 'lib') {
+    closeLibModal();
+    router.navigateTo('docs');
+  } else {
+    const btn = document.querySelector(`.lib-option[data-lib="${selectedLib}"]`);
+    if (btn) {
+      btn.classList.add('shake');
+      setTimeout(() => btn.classList.remove('shake'), 500);
+    }
+  }
+}
+
+function closeLibModal() {
+  const overlay = document.querySelector('.lib-modal-overlay');
+  if (!overlay) return;
+  overlay.classList.remove('visible');
+  setTimeout(() => overlay.remove(), 280);
+  selectedLib = 'lib';
+  document.querySelectorAll('.lib-option').forEach(btn => {
+    btn.classList.toggle('active-option', btn.getAttribute('data-lib') === 'lib');
+  });
+}
 
 function handleSearch(query) {
   const resultsContainer = document.querySelector('.search-results');
@@ -110,7 +199,7 @@ function handleSearch(query) {
   if (filtered.length === 0) {
     resultsContainer.innerHTML = '<div class="search-empty">No results found</div>';
   } else {
-    resultsContainer.innerHTML = filtered.map(item => `
+    resultsContainer.innerHTML = filtered.slice(0, 8).map(item => `
       <div class="search-result-item" onclick="handleSearchSelect('${item.page}', '${item.section || ''}')">
         <span class="search-result-title">${item.title}</span>
         <span class="search-result-type">${item.type}</span>
@@ -128,9 +217,7 @@ function handleSearchSelect(page, section) {
   if (section) {
     setTimeout(() => {
       const target = document.getElementById(section);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 350);
   }
 }
@@ -186,11 +273,7 @@ function setupProjectFilter() {
 
       projectCards.forEach(card => {
         const tags = card.getAttribute('data-tags') || '';
-        if (filter === 'all' || tags.includes(filter)) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
+        card.style.display = (filter === 'all' || tags.includes(filter)) ? 'flex' : 'none';
       });
     });
   });
@@ -199,13 +282,23 @@ function setupProjectFilter() {
 function init() {
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
-      router.navigateTo(link.getAttribute('data-page'));
+      const page = link.getAttribute('data-page');
+      if (page === 'docs') {
+        showDocsModal();
+      } else {
+        router.navigateTo(page);
+      }
     });
   });
 
   document.querySelectorAll('[data-goto]').forEach(el => {
     el.addEventListener('click', () => {
-      router.navigateTo(el.getAttribute('data-goto'));
+      const goto = el.getAttribute('data-goto');
+      if (goto === 'docs') {
+        showDocsModal();
+      } else {
+        router.navigateTo(goto);
+      }
     });
   });
 
@@ -217,6 +310,14 @@ function init() {
     });
   });
 
+  document.querySelectorAll('.inline-link[data-section]').forEach(link => {
+    link.addEventListener('click', () => {
+      const section = link.getAttribute('data-section');
+      router.navigateTo('docs');
+      setTimeout(() => scrollToSection(section), 350);
+    });
+  });
+
   const searchInput = document.querySelector('.search-bar input');
   searchInput.addEventListener('input', (e) => handleSearch(e.target.value));
   searchInput.addEventListener('focus', (e) => {
@@ -224,12 +325,8 @@ function init() {
   });
 
   document.addEventListener('click', (e) => {
-    if (!e.target.closest('.search-wrapper')) {
-      closeSearch();
-    }
-    if (!e.target.closest('.nav-links') && !e.target.closest('.hamburger')) {
-      closeMobileNav();
-    }
+    if (!e.target.closest('.search-wrapper')) closeSearch();
+    if (!e.target.closest('.nav-links') && !e.target.closest('.hamburger')) closeMobileNav();
   });
 
   document.querySelector('.hamburger').addEventListener('click', () => {
@@ -241,11 +338,9 @@ function init() {
   });
 
   document.querySelector('.mobile-sidebar-overlay').addEventListener('click', closeSidebar);
-
   document.querySelector('.theme-toggle').addEventListener('click', toggleTheme);
 
   setupProjectFilter();
-
   router.navigateTo('home');
 }
 
