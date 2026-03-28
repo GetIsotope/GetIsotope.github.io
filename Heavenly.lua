@@ -6691,36 +6691,21 @@ function Heavenly:Window(config)
 end
 
 function Heavenly:Init(theme)
-	theme = theme or Themes.Dark
-	if Heavenly._initDone then return end
-	Heavenly._initDone = true
-	if Heavenly.ShowKeybindList then
-		Heavenly:KeybindList(theme)
-	end
-	if Heavenly.ShowTopbar then
-		Heavenly:Topbar(theme)
-	end
-	if Heavenly.ShowRadial then
-		Heavenly:Radial(theme)
-	end
-
-	if not Heavenly.SaveCfg then return end
-	pcall(function()
-		local configPath = Heavenly.Folder .. "/" .. Heavenly._CfgFile .. ".json"
-		if isfile and isfile(configPath) then
-			if readfile then
-				local rawData = readfile(configPath)
-				local parsedData = HttpService:JSONDecode(rawData)
-				for key, savedValue in pairs(parsedData) do
-					if key:sub(1, 2) ~= "__" then
-						if Heavenly.Flags[key] then
-							pcall(function() Heavenly.Flags[key]:Set(savedValue) end)
-						end
-					end
-				end
-			end
-		end
-	end)
+    if not Heavenly.SaveCfg then return end
+    pcall(function()
+        local configPath = Heavenly.Folder .. "/" .. Heavenly._CfgFile .. ".json"
+        if isfile and isfile(configPath) then
+            local rawData = readfile(configPath)
+            local parsedData = HttpService:JSONDecode(rawData)
+            for key, savedValue in pairs(parsedData) do
+                if key:sub(1, 2) ~= "__" then
+                    if Heavenly.Flags[key] then
+                        pcall(function() Heavenly.Flags[key]:Set(savedValue) end)
+                    end
+                end
+            end
+        end
+    end)
 end
 
 local _wmGui = nil
