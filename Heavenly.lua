@@ -200,6 +200,127 @@ local function makeDraggable(DragPoint, Main)
 	end)
 end
 
+local function makeRes(mainWindow, options)
+	options = options or {}
+	local minW = options.minWidth or 400
+	local minH = options.minHeight or 250
+	local hSz = options.handleSize or 8
+	local onRes = options.onResize or function() end
+	
+	local hs = {
+		{ name = "SE", ax = 0, ay = 0, xd =  1, yd =  1 },
+		{ name = "SW", ax = 1, ay = 0, xd = -1, yd =  1 },
+		{ name = "NE", ax = 0, ay = 1, xd =  1, yd = -1 },
+		{ name = "NW", ax = 1, ay = 1, xd = -1, yd = -1 },
+		{ name = "E",  ax = 0, ay = 0, xd =  1, yd =  0, fullY = true },
+		{ name = "W",  ax = 1, ay = 0, xd = -1, yd =  0, fullY = true },
+		{ name = "S",  ax = 0, ay = 0, xd =  0, yd =  1, fullX = true },
+		{ name = "N",  ax = 0, ay = 1, xd =  0, yd = -1, fullX = true },
+	}
+	
+	local cs = {}
+	local handleFrames = {}
+	
+	local function conn(signal, fn)
+		local c = signal:Connect(fn)
+		table.insert(cs, c)
+		return c
+	end
+	
+	for _, h in ipairs(hs) do
+		local isCorner = not h.fullX and not h.fullY
+		local handle = Instance.new("TextButton")
+		handle.Name = "__ResizeHandle_" .. h.name
+		handle.Text = ""
+		handle.AutoButtonColor = false
+		handle.BackgroundColor3 = Color3.new(1, 1, 1)
+		handle.BackgroundTransparency = 1
+		handle.BorderSizePixel = 0
+		handle.ZIndex = 200
+		handle.Active = true
+		
+		if isCorner then
+			handle.Size = UDim2.new(0, hSz * 2, 0, hSz * 2)
+			handle.AnchorPoint = Vector2.new(h.ax, h.ay)
+			handle.Position = UDim2.new(h.ax, 0, h.ay, 0)
+		elseif h.fullY then
+			handle.Size = UDim2.new(0, hSz, 1, -hSz * 4)
+			handle.AnchorPoint = Vector2.new(h.ax, 0.5)
+			handle.Position = UDim2.new(h.ax, 0, 0.5, 0)
+		else
+			handle.Size = UDim2.new(1, -hSz * 4, 0, hSz)
+			handle.AnchorPoint = Vector2.new(0.5, h.ay)
+			handle.Position = UDim2.new(0.5, 0, h.ay, 0)
+		end
+		--test
+		handle.Parent = mainWindow
+		table.insert(handleFrames, handle)
+
+		conn(handle.MouseEnter, function()
+			handle.BackgroundTransparency = 0.85
+		end)
+		conn(handle.MouseLeave, function()
+			handle.BackgroundTransparency = 1
+		end)
+
+		local dragging   = false
+		local startMouse = Vector2.new()
+		local startPos   = UDim2.new()
+		local startSize  = UDim2.new()
+
+		conn(handle.InputBegan, function(input)
+			if input.UserInputType ~= Enum.UserInputType.MouseButton1 then return end
+			dragging   = true
+			startMouse = input.Position
+			startPos   = mainWindow.Position
+			startSize  = mainWindow.Size
+			conn(input.Changed, function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end)
+
+		conn(UserInputService.InputChanged, function(input)
+			if not dragging then return end
+			if input.UserInputType ~= Enum.UserInputType.MouseMovement then return end
+
+			local delta = input.Position - startMouse
+			local baseW  = startSize.X.Offset
+			local baseH  = startSize.Y.Offset
+			local basePX = startPos.X.Offset
+			local basePY = startPos.Y.Offset
+			local newW, newH, newPX, newPY = baseW, baseH, basePX, basePY
+
+			if h.xd == 1 then
+				newW = math.max(minW, baseW + delta.X)
+			elseif h.xd == -1 then
+				local cd = math.min(delta.X, baseW - minW)
+				newW  = baseW  - cd
+				newPX = basePX + cd
+			end
+
+			if h.yd == 1 then
+				newH = math.max(minH, baseH + delta.Y)
+			elseif h.yd == -1 then
+				local cd = math.min(delta.Y, baseH - minH)
+				newH  = baseH  - cd
+				newPY = basePY + cd
+			end
+
+			mainWindow.Size     = UDim2.new(0, newW, 0, newH)
+			mainWindow.Position = UDim2.new(startPos.X.Scale, newPX, startPos.Y.Scale, newPY)
+			pcall(onResize, newW, newH)
+		end)
+	end
+
+	return function()
+		for _, c in ipairs(connections) do pcall(function() c:Disconnect() end) end
+		for _, f in ipairs(handleFrames) do pcall(function() f:Destroy() end) end
+	end
+end -- test
+
+
 local function normalModifiers(mod)
 	if mod == nil then return {} end
 	if type(mod) == "table" then return mod end
@@ -3048,7 +3169,62 @@ function Heavenly:Window(config)
 	closeIcon.Position = UDim2.new(0, 9, 0, 6)
 	closeIcon.Size = UDim2.new(0, 18, 0, 18)
 	closeIcon.Parent = closeButton
-
+	
+	local resActive = false
+	local resCleanup = nil
+	
+	local resBtn = Instance.new("TextButton")
+	resBtn.Text = ""
+	resBtn.AutoButtonColor = false
+	resBtn.BackgroundTransparency = 1
+	resBtn.BorderSizePixel = 0
+	resBtn.Size = UDim2.new(0, 30, 0, 30)
+	resBtn.Position = UDim2.new(0, -40, 0, 10) -- l
+	resBtn.Parent = topBar -- might change - windowbuttoncont
+	
+	local resIcon = Instance.new("ImageLabel")
+	resIcon.Image = "rbxassetid://9307576840"
+	resIcon.BackgroundTransparency = 1
+	resIcon.ImageColor3 = theme.TextDark
+	resIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+	resIcon.Size = UDim2.new(0, 16, 0, 16)
+	resIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
+	resIcon.Parent = resBtn
+	
+	resBtn.MouseEnter:Connect(function()
+		tweenObj(resIcon, 0.15, nil, nil, {ImageCoor3 = theme.Text})
+	end)
+	resBtn.MouseLeave:Connect(function()
+		tweenObj(resIcon, 0.15, nil, nil, {
+			ImageColor3 = resActive and theme.Accent or theme.TextDark
+		})
+	end)
+	
+	resBtn.MouseButton1Click:Connect(function()
+		resActive = not resActive
+		if resActive then
+			resCleanup = makeResizable(mainWindow, {
+				minWidth = 400,
+				minHeight = 250,
+				onRes = function(w, h)
+					local sw = sidebarExpanded and 150 or 50
+					sidebar.Size = UDim2.new(0, sw, 1, -50)
+					if activeTabPage then
+						activeTabPage.Size = UDim2.new(1, -sw, 1, -50)
+						activeTabPage.Position = UDim2.new(0, sw, 0, 50)
+					end
+				end,
+			})
+			tweenObj(resIcon, 0.2, nil, nil, {ImageColor3 = theme.Accent})
+			addStroke(resBtn, theme.Accent, 1)
+		else
+			if resCleanup then resCleanup() resCleanup = nil end
+			tweenObj(resIcon, 0.2, nil, nil, {ImageColor3 = theme.TextDark})
+			local s = resBtn:FindFirstChildOfClass("UIStroke")
+			if s then s:Destroy() end
+		end
+	end)
+	
 	local dragHandle = Instance.new("Frame")
 	dragHandle.BackgroundTransparency = 1
 	dragHandle.Size = UDim2.new(1, 0, 0, 50)
@@ -3489,7 +3665,7 @@ function Heavenly:Window(config)
 			displayNameLabel.Font = Enum.Font.GothamBold
 			displayNameLabel.BackgroundTransparency = 1
 			displayNameLabel.TextXAlignment = Enum.TextXAlignment.Left
-			displayNameLabel.TextTruncate = Enum.TextTruncate.AtEnd
+			displayNameLabel.TextTruncate = Enum.TextTruncate.None
 			displayNameLabel.Size = UDim2.new(1, -62, 0, 14)
 			displayNameLabel.Position = UDim2.new(0, 50, 0, 8)
 			displayNameLabel.Parent = userSectionContainer
@@ -3505,7 +3681,7 @@ function Heavenly:Window(config)
 			usernameLabel.Font = Enum.Font.Gotham
 			usernameLabel.BackgroundTransparency = 1
 			usernameLabel.TextXAlignment = Enum.TextXAlignment.Left
-			usernameLabel.TextTruncate = Enum.TextTruncate.AtEnd
+			usernameLabel.TextTruncate = Enum.TextTruncate.None
 			usernameLabel.Size = UDim2.new(1, -62, 0, 12)
 			usernameLabel.Position = UDim2.new(0, 50, 0, showDisplayName and 24 or 10)
 			usernameLabel.Parent = userSectionContainer
@@ -3587,6 +3763,11 @@ function Heavenly:Window(config)
 	toggleSidebarButton.MouseButton1Click:Connect(function()
 		if sidebarExpanded then
 			sidebarExpanded = false
+			for _, tabData in ipairs(allTabs) do
+				tabData.btn.Title.TextTransparency = 1
+				tabData.btn.Ico.AnchorPoint = Vector2.new(0.5, 0.5)
+				tabData.btn.Ico.Position = UDim2.new(0.5, 0, 0.5, 0)
+			end
 			toggleSidebarIcon.Text = "\\"
 			tweenObj(sidebar, 0.55, Enum.EasingStyle.Quint, Enum.EasingDirection.Out,
 				{Size = UDim2.new(0, 50, 1, -50)})
@@ -3605,14 +3786,19 @@ function Heavenly:Window(config)
 				if child:IsA("TextLabel") then
 					tweenObj(child, 0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, {TextTransparency = 1})
 				end
+				if child:IsA("Frame") then
+					child.Visible = false
+				end
 			end
-			if showDisplayName and displayNameLabel then
-				tweenObj(displayNameLabel, 0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, {TextTransparency = 1})
-				task.delay(0.18, function() if not sidebarExpanded then displayNameLabel.Visible = false end end)
+			local dnl = windowObject._DisplayNameLabel
+			local unl = windowObject._UsernameLabel
+			if showDisplayName and dnl then
+				tweenObj(dnl, 0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, {TextTransparency = 1})
+				task.delay(0.18, function() if not sidebarExpanded then dnl.Visible = false end end)
 			end
-			if showUsername and usernameLabel then
-				tweenObj(usernameLabel, 0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, {TextTransparency = 1})
-				task.delay(0.18, function() if not sidebarExpanded then usernameLabel.Visible = false end end)
+			if showUsername and unl then
+				tweenObj(unl, 0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, {TextTransparency = 1})
+				task.delay(0.18, function() if not sidebarExpanded then unl.Visible = false end end)
 			end
 			if avatarSubLabel then
 				tweenObj(avatarSubLabel, 0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, {TextTransparency = 1})
@@ -3642,6 +3828,18 @@ function Heavenly:Window(config)
 				if child:IsA("TextLabel") then
 					task.delay(0.2, function()
 						tweenObj(child, 0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, {TextTransparency = 0})
+					end)
+				end
+				if child:IsA("Frame") then
+					child.Visible = true
+					task.delay(0.2, function()
+						for _, secChild in ipairs(child:GetChildren()) do
+							if secChild:IsA("TextLabel") then
+								tweenObj(secChild, 0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, {TextTransparency = 0})
+							elseif secChild:IsA("ImageLabel") then
+								tweenObj(secChild, 0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, {ImageTransparency = 0})
+							end
+						end
 					end)
 				end
 			end
@@ -4311,6 +4509,7 @@ function Heavenly:Window(config)
 		tabButtonTitle.TextTransparency = 0.4
 		tabButtonTitle.BackgroundTransparency = 1
 		tabButtonTitle.TextXAlignment = Enum.TextXAlignment.Left
+		tabButtonTitle.TextTruncate = Enum.TextTruncate.None
 		tabButtonTitle.Size = UDim2.new(1, -35, 1, 0)
 		tabButtonTitle.Position = UDim2.new(0, 35, 0, 0)
 		tabButtonTitle.Parent = tabButton
@@ -6796,6 +6995,10 @@ function Heavenly:Destroy()
 	Heavenly._RestoreRef = nil
 	Heavenly._MinimizedRef = nil
 	Heavenly._initDone = false
+	if _wmGui and _wmGui.Parent then
+		_wmGui:Destroy()
+		_wmGui = nil
+	end
 end
 
 return Heavenly
