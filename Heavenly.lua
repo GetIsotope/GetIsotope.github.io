@@ -6671,6 +6671,10 @@ function Heavenly:Window(config)
 
 	windowObject.MakeTab = windowObject.Tab
 
+	task.defer(function()
+    	Heavenly:Init(theme)
+	end)
+
 	if doStartup and Animations[startupAnim] then
 		task.spawn(function()
 			Animations[startupAnim](mainWindow, screenGui, theme, startupText, startupIcon)
