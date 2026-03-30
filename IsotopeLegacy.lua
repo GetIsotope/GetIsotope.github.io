@@ -1,27 +1,27 @@
-local Heavenly = {}
-Heavenly.Flags = {}
-Heavenly.SaveCfg = false
-Heavenly.Folder = "Heavenly"
-Heavenly._CfgFile = ""
-Heavenly.Binds = {}
-Heavenly._BindListGui = nil
-Heavenly._TopbarGui = nil
-Heavenly._RadialGui = nil
+local Isotope = {}
+Isotope.Flags = {}
+Isotope.SaveCfg = false
+Isotope.Folder = "Isotope"
+Isotope._CfgFile = ""
+Isotope.Binds = {}
+Isotope._BindListGui = nil
+Isotope._TopbarGui = nil
+Isotope._RadialGui = nil
 
-Heavenly.ShowKeybindList = false
-Heavenly.ShowTopbar = false
-Heavenly.TopbarBind = nil
-Heavenly.ShowRadial = false
-Heavenly.RadialHotkey = nil
-Heavenly.RadialMode = "hold"
+Isotope.ShowKeybindList = false
+Isotope.ShowTopbar = false
+Isotope.TopbarBind = nil
+Isotope.ShowRadial = false
+Isotope.RadialHotkey = nil
+Isotope.RadialMode = "hold"
 
-Heavenly._Tabs = {}
-Heavenly.TabOrder = false
-Heavenly._ElementRegistry = {}
+Isotope._Tabs = {}
+Isotope.TabOrder = false
+Isotope._ElementRegistry = {}
 
-Heavenly._MainWindowRef = nil
-Heavenly._MinimizedRef = nil
-Heavenly._RestoreRef = nil
+Isotope._MainWindowRef = nil
+Isotope._MinimizedRef = nil
+Isotope._RestoreRef = nil
 
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
@@ -31,7 +31,7 @@ local HttpService = game:GetService("HttpService")
 local LocalPlayer = Players.LocalPlayer
 
 local Themes = {}
-Heavenly.Themes = Themes
+Isotope.Themes = Themes
 
 do
 	local defaultColors = {
@@ -426,7 +426,7 @@ local notifBottomMargin = 25
 local function getNotifGui()
 	if notifGui and notifGui.Parent then return notifGui end
 	local screenGui = Instance.new("ScreenGui")
-	screenGui.Name = "HeavenlyNotifications"
+	screenGui.Name = "IsotopeNotifications"
 	screenGui.ResetOnSpawn = false
 	screenGui.DisplayOrder = 999
 	screenGui.IgnoreGuiInset = true
@@ -454,7 +454,7 @@ local function refNotifs(skipIndex)
 	end
 end
 
-function Heavenly:Notify(configOrText, durationArg)
+function Isotope:Notify(configOrText, durationArg)
 	local title, content, image, duration, barColor
 	if type(configOrText) == "table" then
 		title = configOrText.Name or "Notification"
@@ -628,20 +628,20 @@ local function saveFlags(folder, file)
 	pcall(function()
 		if not isfolder(folder) then makefolder(folder) end
 		local saveData = {}
-		for key, flagObj in pairs(Heavenly.Flags) do
+		for key, flagObj in pairs(Isotope.Flags) do
 			if flagObj.Save then saveData[key] = flagObj.Value end
 		end
 		writefile(folder .. "/" .. file .. ".json", HttpService:JSONEncode(saveData))
 	end)
 end
 
-function Heavenly:Topbar()
-	if not Heavenly.ShowTopbar then return end
-	if Heavenly._TopbarGui and Heavenly._TopbarGui.Parent then
-		Heavenly._TopbarGui:Destroy()
+function Isotope:Topbar()
+	if not Isotope.ShowTopbar then return end
+	if Isotope._TopbarGui and Isotope._TopbarGui.Parent then
+		Isotope._TopbarGui:Destroy()
 	end
 
-	local tabs = Heavenly._Tabs
+	local tabs = Isotope._Tabs
 	local tabCount = #tabs
 	if tabCount == 0 then return end
 
@@ -668,13 +668,13 @@ function Heavenly:Topbar()
 	local isExpanded = false
 
 	local screenGui = Instance.new("ScreenGui")
-	screenGui.Name = "HeavenlyTopbar"
+	screenGui.Name = "IsotopeTopbar"
 	screenGui.ResetOnSpawn = false
 	screenGui.DisplayOrder = 997
 	screenGui.IgnoreGuiInset = true
 	screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	secGui(screenGui)
-	Heavenly._TopbarGui = screenGui
+	Isotope._TopbarGui = screenGui
 
 	local topbarPanel = Instance.new("Frame")
 	topbarPanel.Name = "TopbarPanel"
@@ -834,7 +834,7 @@ function Heavenly:Topbar()
 			hideTooltip()
 			tweenObj(tabButton, 0.07, nil, nil, {BackgroundColor3 = accentColor})
 			tweenObj(tabButton, 0.22, nil, nil, {BackgroundColor3 = buttonBgColor})
-			if Heavenly._RestoreRef then pcall(Heavenly._RestoreRef) end
+			if Isotope._RestoreRef then pcall(Isotope._RestoreRef) end
 			pcall(tabEntry.selectFn)
 		end)
 	end
@@ -932,9 +932,9 @@ function Heavenly:Topbar()
 	local function buildIndex()
 		local index = {}
 		local seen = {}
-		for flagName, flagObj in pairs(Heavenly.Flags) do
+		for flagName, flagObj in pairs(Isotope.Flags) do
 			local tabRef = nil
-			for _, entry in ipairs(Heavenly._ElementRegistry) do
+			for _, entry in ipairs(Isotope._ElementRegistry) do
 				if entry.obj == flagObj then
 					tabRef = entry.tab
 					break
@@ -943,13 +943,13 @@ function Heavenly:Topbar()
 			table.insert(index, {key = flagName, obj = flagObj, tab = tabRef})
 			seen[flagObj] = true
 		end
-		for _, entry in ipairs(Heavenly._ElementRegistry) do
+		for _, entry in ipairs(Isotope._ElementRegistry) do
 			if not seen[entry.obj] then
 				table.insert(index, {key = entry.name, obj = entry.obj, tab = entry.tab})
 				seen[entry.obj] = true
 			end
 		end
-		for _, bindEntry in ipairs(Heavenly.Binds) do
+		for _, bindEntry in ipairs(Isotope.Binds) do
 			if not seen[bindEntry.Bind] then
 				table.insert(index, {key = bindEntry.Name, obj = bindEntry.Bind, tab = bindEntry.tab})
 				seen[bindEntry.Bind] = true
@@ -1068,7 +1068,7 @@ function Heavenly:Topbar()
 				local targetTab = entry.tab
 				if targetTab then
 					closeSearch(function()
-						if Heavenly._RestoreRef then pcall(Heavenly._RestoreRef) end
+						if Isotope._RestoreRef then pcall(Isotope._RestoreRef) end
 						pcall(targetTab.selectFn)
 					end)
 				elseif entry.obj and entry.obj.Type == "Toggle" and entry.obj.Set then
@@ -1121,28 +1121,28 @@ function Heavenly:Topbar()
 	return screenGui
 end
 
-function Heavenly:Radial()
-	if not Heavenly.ShowRadial then return end
-	if not Heavenly.RadialHotkey then
-		warn("Heavenly >> ShowRadial = true but RadialHotkey is nil")
+function Isotope:Radial()
+	if not Isotope.ShowRadial then return end
+	if not Isotope.RadialHotkey then
+		warn("Isotope >> ShowRadial = true but RadialHotkey is nil")
 		return
 	end
-	if Heavenly._RadialGui and Heavenly._RadialGui.Parent then
-		Heavenly._RadialGui:Destroy()
+	if Isotope._RadialGui and Isotope._RadialGui.Parent then
+		Isotope._RadialGui:Destroy()
 	end
 
-	local tabs = Heavenly._Tabs
+	local tabs = Isotope._Tabs
 	if #tabs == 0 then return end
 	local tabCount = #tabs
 
 	local screenGui = Instance.new("ScreenGui")
-	screenGui.Name = "HeavenlyRadial"
+	screenGui.Name = "IsotopeRadial"
 	screenGui.ResetOnSpawn = false
 	screenGui.DisplayOrder = 999
 	screenGui.IgnoreGuiInset = true
 	screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	secGui(screenGui)
-	Heavenly._RadialGui = screenGui
+	Isotope._RadialGui = screenGui
 
 	local ringRadius = 150
 	local innerRadius = 56
@@ -1184,7 +1184,7 @@ function Heavenly:Radial()
 	addStroke(centerCircle, Color3.fromRGB(50, 50, 70), 1.5)
 
 	local centerHint = Instance.new("TextLabel")
-	centerHint.Text = Heavenly.RadialMode == "hold" and "release\nto cancel" or "click\nto select"
+	centerHint.Text = Isotope.RadialMode == "hold" and "release\nto cancel" or "click\nto select"
 	centerHint.Font = Enum.Font.Gotham
 	centerHint.TextSize = 10
 	centerHint.TextColor3 = Color3.fromRGB(90, 90, 115)
@@ -1336,7 +1336,7 @@ function Heavenly:Radial()
 		closeTween:Play()
 		setHovered(nil)
 		if selectIndex then
-			if Heavenly._RestoreRef then pcall(Heavenly._RestoreRef) end
+			if Isotope._RestoreRef then pcall(Isotope._RestoreRef) end
 			pcall(tabs[selectIndex].selectFn)
 		end
 	end
@@ -1364,7 +1364,7 @@ function Heavenly:Radial()
 		setHovered(segmentIndex)
 	end)
 
-	if Heavenly.RadialMode == "toggle" then
+	if Isotope.RadialMode == "toggle" then
 		UserInputService.InputBegan:Connect(function(input, gameProcessed)
 			if not isOpen then return end
 			if input.UserInputType == Enum.UserInputType.MouseButton1 then
@@ -1375,17 +1375,17 @@ function Heavenly:Radial()
 
 	UserInputService.InputBegan:Connect(function(input, gameProcessed)
 		if gameProcessed then return end
-		if input.KeyCode ~= Heavenly.RadialHotkey then return end
-		if Heavenly.RadialMode == "toggle" then
+		if input.KeyCode ~= Isotope.RadialHotkey then return end
+		if Isotope.RadialMode == "toggle" then
 			if isOpen then closeWheel(nil) else openWheel() end
 		else
 			openWheel()
 		end
 	end)
 
-	if Heavenly.RadialMode == "hold" then
+	if Isotope.RadialMode == "hold" then
 		UserInputService.InputEnded:Connect(function(input)
-			if input.KeyCode ~= Heavenly.RadialHotkey then return end
+			if input.KeyCode ~= Isotope.RadialHotkey then return end
 			if isOpen then closeWheel(hoveredIndex) end
 		end)
 	end
@@ -1393,19 +1393,19 @@ function Heavenly:Radial()
 	return screenGui
 end
 
-function Heavenly:KeybindList()
-	if Heavenly.ShowKeybindList == false then return end
-	if Heavenly._BindListGui and Heavenly._BindListGui.Parent then
-		Heavenly._BindListGui:Destroy()
+function Isotope:KeybindList()
+	if Isotope.ShowKeybindList == false then return end
+	if Isotope._BindListGui and Isotope._BindListGui.Parent then
+		Isotope._BindListGui:Destroy()
 	end
 
 	local screenGui = Instance.new("ScreenGui")
-	screenGui.Name = "HeavenlyKeybindList"
+	screenGui.Name = "IsotopeKeybindList"
 	screenGui.ResetOnSpawn = false
 	screenGui.DisplayOrder = 998
 	screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	secGui(screenGui)
-	Heavenly._BindListGui = screenGui
+	Isotope._BindListGui = screenGui
 
 	local keybindPanel = Instance.new("Frame")
 	keybindPanel.Name = "KeybindPanel"
@@ -1553,19 +1553,19 @@ function Heavenly:KeybindList()
 		end)
 	end
 
-	for _, entry in ipairs(Heavenly.Binds) do
+	for _, entry in ipairs(Isotope.Binds) do
 		buildKeybindRow(entry)
 	end
 
-	local knownBindCount = #Heavenly.Binds
+	local knownBindCount = #Isotope.Binds
 	task.spawn(function()
 		while screenGui and screenGui.Parent do
 			task.wait(0.5)
-			if #Heavenly.Binds > knownBindCount then
-				for newIndex = knownBindCount + 1, #Heavenly.Binds do
-					buildKeybindRow(Heavenly.Binds[newIndex])
+			if #Isotope.Binds > knownBindCount then
+				for newIndex = knownBindCount + 1, #Isotope.Binds do
+					buildKeybindRow(Isotope.Binds[newIndex])
 				end
-				knownBindCount = #Heavenly.Binds
+				knownBindCount = #Isotope.Binds
 			end
 		end
 	end)
@@ -1574,35 +1574,35 @@ function Heavenly:KeybindList()
 	return screenGui
 end
 
-function Heavenly:Window(config)
+function Isotope:Window(config)
 	config = config or {}
 
 	local targets = {game:GetService("CoreGui"), LocalPlayer.PlayerGui}
 	for _, target in pairs(targets) do
-		for _, guiName in ipairs({"HeavenlyUI", "HeavenlyNotifications", "HeavenlyNotificationsClassic", "HeavenlyKeybindList", "HeavenlyTopbar", "HeavenlyRadial"}) do
+		for _, guiName in ipairs({"IsotopeUI", "IsotopeNotifications", "IsotopeNotificationsClassic", "IsotopeKeybindList", "IsotopeTopbar", "IsotopeRadial"}) do
 			local guiInstance = target:FindFirstChild(guiName)
 			if guiInstance then guiInstance:Destroy() end
 		end
 	end
 	pcall(function()
 		local protectedGui = gethui()
-		for _, guiName in ipairs({"HeavenlyUI", "HeavenlyNotifications", "HeavenlyNotificationsClassic", "HeavenlyKeybindList", "HeavenlyTopbar", "HeavenlyRadial"}) do
+		for _, guiName in ipairs({"IsotopeUI", "IsotopeNotifications", "IsotopeNotificationsClassic", "IsotopeKeybindList", "IsotopeTopbar", "IsotopeRadial"}) do
 			local guiInstance = protectedGui:FindFirstChild(guiName)
 			if guiInstance then guiInstance:Destroy() end
 		end
 	end)
-	table.clear(Heavenly.Binds)
-	table.clear(Heavenly._Tabs)
-	table.clear(Heavenly._ElementRegistry)
+	table.clear(Isotope.Binds)
+	table.clear(Isotope._Tabs)
+	table.clear(Isotope._ElementRegistry)
 	table.clear(notifStack)
-	Heavenly._BindListGui = nil
-	Heavenly._TopbarGui = nil
-	Heavenly._RadialGui = nil
-	Heavenly._MainWindowRef = nil
-	Heavenly._RestoreRef = nil
-	Heavenly._MinimizedRef = nil
+	Isotope._BindListGui = nil
+	Isotope._TopbarGui = nil
+	Isotope._RadialGui = nil
+	Isotope._MainWindowRef = nil
+	Isotope._RestoreRef = nil
+	Isotope._MinimizedRef = nil
 
-	local windowName = config.Name or "HeavenlyUI"
+	local windowName = config.Name or "IsotopeUI"
 	local theme = Themes[config.Theme] or Themes.Dark
 	local doStartup = config.Startup or false
 	local startupAnim = config.StartupAnim or "Fade"
@@ -1619,9 +1619,9 @@ function Heavenly:Window(config)
 	local closeAnim    = config.CloseAnim    or "Shrink"
 	local minimizeAnim = config.MinimizeAnim or "Slide"
 
-	Heavenly.SaveCfg = doSaveConfig
-	Heavenly.Folder = configFolder
-	Heavenly._CfgFile = configFile
+	Isotope.SaveCfg = doSaveConfig
+	Isotope.Folder = configFolder
+	Isotope._CfgFile = configFile
 
 	local accentColor = Color3.fromRGB(0, 170, 255)
 	local accentElements = {}
@@ -1633,14 +1633,14 @@ function Heavenly:Window(config)
 	local allTabs = {}
 
 	local screenGui = Instance.new("ScreenGui")
-	screenGui.Name = "HeavenlyUI"
+	screenGui.Name = "IsotopeUI"
 	screenGui.ResetOnSpawn = false
 	screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	secGui(screenGui)
 
 	if screenGui.Parent then
 		for _, child in pairs(screenGui.Parent:GetChildren()) do
-			if child.Name == "HeavenlyUI" and child ~= screenGui then child:Destroy() end
+			if child.Name == "IsotopeUI" and child ~= screenGui then child:Destroy() end
 		end
 	end
 
@@ -1657,7 +1657,7 @@ function Heavenly:Window(config)
 
 	local windowStroke = addStroke(mainWindow, theme.Stroke, 1.5)
 
-	Heavenly._MainWindowRef = mainWindow
+	Isotope._MainWindowRef = mainWindow
 
 	local topBar = Instance.new("Frame")
 	topBar.BackgroundTransparency = 1
@@ -1766,7 +1766,7 @@ function Heavenly:Window(config)
 	makeDraggable(dragHandle, mainWindow)
 
 	local toastScreenGui = Instance.new("ScreenGui")
-	toastScreenGui.Name = "HeavenlyToasts"
+	toastScreenGui.Name = "IsotopeToasts"
 	toastScreenGui.ResetOnSpawn = false
 	toastScreenGui.DisplayOrder = 998
 	toastScreenGui.IgnoreGuiInset = true
@@ -2125,7 +2125,7 @@ function Heavenly:Window(config)
 		animClose(function()
 			isHidden = true
 			pcall(closeCallback)
-			Heavenly:Notify({
+			Isotope:Notify({
 				Name = "Interface Hidden",
 				Content = "Press " .. tostring(reopenKey.Name) .. " to reopen.",
 				Time = 5,
@@ -2170,8 +2170,8 @@ function Heavenly:Window(config)
 			isMinimized = false
 		end
 	end
-	Heavenly._RestoreRef = restoreWindow
-	Heavenly._MinimizedRef = function() return isMinimized end
+	Isotope._RestoreRef = restoreWindow
+	Isotope._MinimizedRef = function() return isMinimized end
 
 	local function selectTab(page, button)
 		if activeTabPage then activeTabPage.Visible = false end
@@ -2200,7 +2200,7 @@ function Heavenly:Window(config)
 	function windowObject:Toast(text, icon)
 		text = tostring(text or "")
 		task.spawn(function()
-			local topY = Heavenly.ShowTopbar and (14 + 48 + 8) or 14
+			local topY = Isotope.ShowTopbar and (14 + 48 + 8) or 14
 
 			local toast = Instance.new("Frame")
 			toast.BackgroundColor3 = Color3.fromRGB(24, 24, 30)
@@ -2441,7 +2441,7 @@ function Heavenly:Window(config)
 			icon = tabIcon,
 			selectFn = function() selectTab(tabPage, tabButton) end,
 		}
-		table.insert(Heavenly._Tabs, tabEntry)
+		table.insert(Isotope._Tabs, tabEntry)
 
 		table.insert(allTabs, {btn = tabButton, page = tabPage})
 		tabButton.LayoutOrder = #allTabs
@@ -2587,7 +2587,7 @@ function Heavenly:Window(config)
 
 			local obj = {Type = "Button"}
 			function obj:Set(t) nameLabel.Text = tostring(t) end
-			table.insert(Heavenly._ElementRegistry, {name = resolvedText, obj = obj, tab = tabEntry})
+			table.insert(Isotope._ElementRegistry, {name = resolvedText, obj = obj, tab = tabEntry})
 			return obj
 		end
 
@@ -2802,8 +2802,8 @@ function Heavenly:Window(config)
 				end)
 			end
 
-			if resolvedFlag then Heavenly.Flags[resolvedFlag] = toggleObj end
-			table.insert(Heavenly._ElementRegistry, {name = resolvedText, obj = toggleObj, tab = tabEntry})
+			if resolvedFlag then Isotope.Flags[resolvedFlag] = toggleObj end
+			table.insert(Isotope._ElementRegistry, {name = resolvedText, obj = toggleObj, tab = tabEntry})
 			return toggleObj
 		end
 
@@ -2974,8 +2974,8 @@ function Heavenly:Window(config)
 			end)
 
 			sliderObj:Set(resolvedDefault)
-			if resolvedFlag then Heavenly.Flags[resolvedFlag] = sliderObj end
-			table.insert(Heavenly._ElementRegistry, {name = resolvedText, obj = sliderObj, tab = tabEntry})
+			if resolvedFlag then Isotope.Flags[resolvedFlag] = sliderObj end
+			table.insert(Isotope._ElementRegistry, {name = resolvedText, obj = sliderObj, tab = tabEntry})
 			return sliderObj
 		end
 
@@ -3259,8 +3259,8 @@ function Heavenly:Window(config)
 
 			dropdown:Refresh(dropdown.Options, false)
 			dropdown:Set(dropdown.Value)
-			if dropdownFlag then Heavenly.Flags[dropdownFlag] = dropdown end
-			table.insert(Heavenly._ElementRegistry, {name = dropdownName, obj = dropdown, tab = tabEntry})
+			if dropdownFlag then Isotope.Flags[dropdownFlag] = dropdown end
+			table.insert(Isotope._ElementRegistry, {name = dropdownName, obj = dropdown, tab = tabEntry})
 			return dropdown
 		end
 
@@ -3422,8 +3422,8 @@ function Heavenly:Window(config)
 			end
 
 			bind:Set(bindDefault)
-			if bindFlag then Heavenly.Flags[bindFlag] = bind end
-			table.insert(Heavenly.Binds, {Name = bindName, Bind = bind, tab = tabEntry})
+			if bindFlag then Isotope.Flags[bindFlag] = bind end
+			table.insert(Isotope.Binds, {Name = bindName, Bind = bind, tab = tabEntry})
 			return bind
 		end
 
@@ -3642,7 +3642,7 @@ function Heavenly:Window(config)
 			end
 
 			colorpicker:Set(colorpicker.Value)
-			if colorFlag then Heavenly.Flags[colorFlag] = colorpicker end
+			if colorFlag then Isotope.Flags[colorFlag] = colorpicker end
 			return colorpicker
 		end
 
@@ -3664,7 +3664,7 @@ function Heavenly:Window(config)
 	windowObject.MakeTab = windowObject.Tab
 
 	task.defer(function()
-		Heavenly:Init()
+		Isotope:Init()
 	end)
 
 	if doStartup and Animations[startupAnim] then
@@ -3678,34 +3678,34 @@ function Heavenly:Window(config)
 	return windowObject
 end
 
-function Heavenly:Init()
-	if Heavenly._initDone then return end
-	Heavenly._initDone = true
-	if Heavenly.ShowKeybindList then
-		Heavenly:KeybindList()
+function Isotope:Init()
+	if Isotope._initDone then return end
+	Isotope._initDone = true
+	if Isotope.ShowKeybindList then
+		Isotope:KeybindList()
 	end
-	if Heavenly.ShowTopbar then
-		Heavenly:Topbar()
+	if Isotope.ShowTopbar then
+		Isotope:Topbar()
 	end
-	if Heavenly.ShowRadial then
-		Heavenly:Radial()
+	if Isotope.ShowRadial then
+		Isotope:Radial()
 	end
 
-	if not Heavenly.SaveCfg then return end
+	if not Isotope.SaveCfg then return end
 	pcall(function()
-		local configPath = Heavenly.Folder .. "/" .. Heavenly._CfgFile .. ".json"
+		local configPath = Isotope.Folder .. "/" .. Isotope._CfgFile .. ".json"
 		if isfile and isfile(configPath) then
 			if readfile then
 				local rawData = readfile(configPath)
 				local parsedData = HttpService:JSONDecode(rawData)
 				for key, savedValue in pairs(parsedData) do
-					if Heavenly.Flags[key] then
-						pcall(function() Heavenly.Flags[key]:Set(savedValue) end)
+					if Isotope.Flags[key] then
+						pcall(function() Isotope.Flags[key]:Set(savedValue) end)
 					end
 				end
-				Heavenly:Notify({
+				Isotope:Notify({
 					Name = "Configuration",
-					Content = "Auto-loaded configuration for game " .. Heavenly._CfgFile .. ".",
+					Content = "Auto-loaded configuration for game " .. Isotope._CfgFile .. ".",
 					Time = 5,
 					DurationColor = Color3.fromRGB(0, 200, 120),
 				})
@@ -3714,35 +3714,35 @@ function Heavenly:Init()
 	end)
 end
 
-Heavenly.MakeWindow = Heavenly.Window
-Heavenly.MakeNotification = Heavenly.Notify
+Isotope.MakeWindow = Isotope.Window
+Isotope.MakeNotification = Isotope.Notify
 
-function Heavenly:Destroy()
+function Isotope:Destroy()
 	local targets = {game:GetService("CoreGui"), LocalPlayer.PlayerGui}
 	for _, target in pairs(targets) do
-		for _, guiName in ipairs({"HeavenlyUI", "HeavenlyNotifications", "HeavenlyNotificationsClassic", "HeavenlyKeybindList", "HeavenlyTopbar", "HeavenlyRadial"}) do
+		for _, guiName in ipairs({"IsotopeUI", "IsotopeNotifications", "IsotopeNotificationsClassic", "IsotopeKeybindList", "IsotopeTopbar", "IsotopeRadial"}) do
 			local guiInstance = target:FindFirstChild(guiName)
 			if guiInstance then guiInstance:Destroy() end
 		end
 	end
 	pcall(function()
 		local protectedGui = gethui()
-		for _, guiName in ipairs({"HeavenlyUI", "HeavenlyNotifications", "HeavenlyNotificationsClassic", "HeavenlyKeybindList", "HeavenlyTopbar", "HeavenlyRadial"}) do
+		for _, guiName in ipairs({"IsotopeUI", "IsotopeNotifications", "IsotopeNotificationsClassic", "IsotopeKeybindList", "IsotopeTopbar", "IsotopeRadial"}) do
 			local guiInstance = protectedGui:FindFirstChild(guiName)
 			if guiInstance then guiInstance:Destroy() end
 		end
 	end)
-	table.clear(Heavenly.Binds)
-	table.clear(Heavenly._Tabs)
-	table.clear(Heavenly._ElementRegistry)
+	table.clear(Isotope.Binds)
+	table.clear(Isotope._Tabs)
+	table.clear(Isotope._ElementRegistry)
 	table.clear(notifStack)
-	Heavenly._BindListGui = nil
-	Heavenly._TopbarGui = nil
-	Heavenly._RadialGui = nil
-	Heavenly._MainWindowRef = nil
-	Heavenly._RestoreRef = nil
-	Heavenly._MinimizedRef = nil
-	Heavenly._initDone = false
+	Isotope._BindListGui = nil
+	Isotope._TopbarGui = nil
+	Isotope._RadialGui = nil
+	Isotope._MainWindowRef = nil
+	Isotope._RestoreRef = nil
+	Isotope._MinimizedRef = nil
+	Isotope._initDone = false
 end
 
-return Heavenly
+return Isotope
