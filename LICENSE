@@ -1,4 +1,3 @@
-
 Copyright (c) 2026, HeavenlyScripts
 
 This library is inspired by OrionLib's UI design.
@@ -12,28 +11,35 @@ modify, and redistribute the Software, subject to the following conditions:
    provide clear credit to the original author. The credit must state:
    "HeavenlyScripts UI Library, 2026, inspired by OrionLib."
 
-2. Non-Commercial Use Only  
-   The Software and any derivative works may not be sold or monetized in 
-   any form. Redistribution must be free of charge.
+2. Commercial Use Allowed (Library Restriction)  
+   The Software may be used in commercial, monetized, or paid projects, 
+   including but not limited to games, scripts, and applications.  
+   However, the Software itself, in original or modified form, may not be sold, 
+   sublicensed, or redistributed for a fee as a standalone product or competing library.
 
-3. Branding Protection  
+3. Redistribution Terms  
+   Redistribution of the Software, in original or modified form, must be free 
+   of charge when distributed as a standalone library. The Software may be included 
+   as part of a larger paid project, provided it is not the primary value being sold.
+
+4. Branding Protection  
    The name “Heavenly”, including logos, design elements, documentation styling,
-   and associated branding assets (collectively, the “Heavenly Brand”) are 
+   and associated branding assets (collectively, the “Heavenly Brand”), are 
    the exclusive property of the author.  
    - Derivative works may not use the name “Heavenly”.  
-   - Derivative works must use a clearly distinct name and branding.  
-   - The Heavenly Brand may not be used to misrepresent a derivative work as official.
+   - Derivative works must use clearly distinct naming and branding.  
+   - The Heavenly Brand may not be used to imply endorsement or represent a derivative work as official.
 
-4. Derivative Work Disclosure  
+5. Derivative Work Disclosure  
    If you modify or extend the Software, you must clearly indicate that your
    version is a derivative and not the official HeavenlyScripts UI Library.
 
-5. No Warranty
+6. No Warranty  
    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-   FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. THE AUTHOR SHALL NOT
-   BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM THE USE
+   FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM THE USE
    OR DISTRIBUTION OF THE SOFTWARE.
 
 By using, modifying, or redistributing the Software, you agree to comply with
-all terms above. Failure to do so may result in legal action.
+all terms above.
