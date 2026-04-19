@@ -2809,14 +2809,18 @@ local f = {
     "ex"
 }
 
-local f={"elitex scripts","ex key","ex key system","ex v1.0","ex"}
-
 local function b(t)
-    if not t then return end
-    t=t:lower()
-    for _,w in ipairs(f) do
-        if t:find(w,1,true) then return true end
+    if not t then return false end
+
+    t = tostring(t):lower()
+
+    for _, w in ipairs(f) do
+        if string.find(t, w, 1, true) then
+            return true
+        end
     end
+
+    return false
 end
 
 function Isotope:Window(config)
@@ -2850,7 +2854,7 @@ function Isotope:Window(config)
 
 	local windowName = config.Name or "IsotopeUI"
 	if b(windowName) then
-    	game:GetService("Players").LocalPlayer:Kick("Unauthorized Use! Contact Ui Library Holder.")
+   		game:GetService("Players").LocalPlayer:Kick("unauthorized")
     	return
 	end
 	local theme = Themes[config.Theme] or Themes.Dark
