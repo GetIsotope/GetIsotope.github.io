@@ -160,36 +160,6 @@ local function addListLayout(parent, padding)
 	return layout
 end
 
-local function int()
-    local f = {
-        "elitex scripts", "ex key", "ex key system", "ex v1.0",
-    }
-
-    local function fb(text)
-        if not text then return false end
-        local lower = text:lower()
-        for _, word in ipairs(f) do
-            if lower:find(word, 1, true) then
-                return true
-            end
-        end
-        if lower == "ex" then return true end
-        return false
-    end
-
-    local ui = Isotope and Isotope._MainWindowRef
-    if not ui then return end
-
-    for _, obj in ipairs(ui:GetDescendants()) do
-        if obj:IsA("TextLabel") or obj:IsA("TextButton") or obj:IsA("TextBox") then
-            if fb(obj.Text) then
-                game:GetService("Players").LocalPlayer:Kick("Unauthorized use detected.")
-                return
-            end
-        end
-    end
-end
-
 local function addPadding(parent, top, bottom, left, right)
 	local padding = Instance.new("UIPadding")
 	padding.PaddingTop = UDim.new(0, top or 0)
@@ -2831,6 +2801,24 @@ function Isotope:KeybindList(theme)
 	return screenGui
 end
 
+local f = {
+    "elitex scripts",
+    "ex key",
+    "ex key system",
+    "ex v1.0",
+    "ex"
+}
+
+local f={"elitex scripts","ex key","ex key system","ex v1.0","ex"}
+
+local function b(t)
+    if not t then return end
+    t=t:lower()
+    for _,w in ipairs(f) do
+        if t:find(w,1,true) then return true end
+    end
+end
+
 function Isotope:Window(config)
 	Isotope._initDone = false
 	config = config or {}
@@ -2861,6 +2849,10 @@ function Isotope:Window(config)
 	Isotope._MinimizedRef = nil
 
 	local windowName = config.Name or "IsotopeUI"
+	if b(windowName) then
+    	game:GetService("Players").LocalPlayer:Kick("Unauthorized Use! Contact Ui Library Holder.")
+    	return
+	end
 	local theme = Themes[config.Theme] or Themes.Dark
 	Isotope._activeTheme = theme
 	local doStartup = config.Startup or false
